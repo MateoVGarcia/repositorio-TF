@@ -1,13 +1,28 @@
 package ar.edu.unju.fi.entity;
 
-public class Contacto {
 
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
+public class Contacto {
+	
+	@NotEmpty(message="El nombre no puede permanecer vacío")
+	@Size(min=5, max=40, message="El nombre debe contener entre 5 y 40 caracteres")
 	private String nombre;
 
+	
+	@NotEmpty(message="El email no puede estar vacío")
+	@Email(message = "El email debe tener un formato válido")
 	private String email;
 
+	@NotEmpty(message="La ciudad no puede estar vacía")
+	@Size(min=5, max=40, message="El límite permitido para una ciudad es de 5 a 40 caracteres")
 	private String ciudad;
-
+	
+	@NotEmpty(message="Necesita poner un mensaje")
+	@Size(min=30, max=100, message="El máximo permitido para una mensaje son 30 a 100 caracteres")
 	private String mensaje;
 
 	public Contacto() {

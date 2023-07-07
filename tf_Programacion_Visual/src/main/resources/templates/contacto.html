@@ -44,7 +44,7 @@
 
 		<!-- Columna derecha -->
         <div class="col-md-6 col-lg-6 mb-5 ">
-            <form th:if="${mensaje eq null}" th:action="@{/contacto}" method="post" th:object="${contacto}">
+            <form th:if="${mensaje eq null}" th:action="@{/contacto}" method="post" th:object="${contacto}" th:classappend="${#fields.hasErrors() ? 'was-validated' : ''}">
                
                <div class="form-group mb-3">
                		<label for="nombre" class="h5">Nombre</label>
