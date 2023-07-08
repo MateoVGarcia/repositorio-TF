@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+	<head>
+		<meta charset="UTF-8">
+		 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+		<link th:rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	</head>
+
+<body>
+	<header class="main_header">
+	<div class="container">
+				<img th:src="@{/images/petshoplogo.jpg}" alt="PetShop" title="DonCacho PetShop Logo" class="img-fluid">
+				<h1>DonCacho PetShop</h1>
+			</div>
+
+	<nav class="index_nav">
+		<div class="container">
+			<ul class="imain-nav text-center d-flex flex-wrap">
+				<li class="imain-nav-item pb-3 flex-fill"><a th:href="@{/inicio}">INICIO</a></li>
+				<li class="imain-nav-item pb-3 flex-fill"><a th:href="@{/nuevo_registro/listado}">PRODUCTOS</a></li>
+				<li class="imain-nav-item pb-3 flex-fill"><a th:href="@{/consejos/listado}">CONSEJOS PARA LA SALUD</a></li>
+				<li class="imain-nav-item pb-3 flex-fill"><a th:href="@{/servicios/listado}">SERVICIOS DE PASEOS</a></li>
+				<li class="imain-nav-item pb-3 flex-fill"><a th:href="@{/sucursales/listado}">SUCURSALES</a></li>
+				<li class="imain-nav-item pb-3 flex-fill"><a th:href="@{/contactos}">CONTACTANOS</a></li>
+			</ul>
+		</div>
+	</nav>
+</header>
+	
+	
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
