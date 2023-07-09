@@ -76,7 +76,7 @@ public class RegistrarseController {
     public ModelAndView guardarRegistro(@Valid @ModelAttribute("registro") Registro registro, BindingResult result) {
         ModelAndView modelView = new ModelAndView("registrarse");
         if (result.hasErrors()) {
-            modelView.setViewName("nuevo_registro");
+            modelView.setViewName("registrarse");
             modelView.addObject("registro", registro);
             modelView.addObject("categorias", commonService.getRegistroCategoria());
             return modelView;
