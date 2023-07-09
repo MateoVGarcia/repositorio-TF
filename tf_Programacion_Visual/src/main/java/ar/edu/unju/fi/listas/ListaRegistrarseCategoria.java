@@ -12,6 +12,7 @@ private List<String> categorias;
 	
 	public ListaRegistrarseCategoria() {
 		categorias= new ArrayList<String>();
+		categorias.add("Eliga un sexo");
 		categorias.add("Masculino");
 		categorias.add("Femenino");
 		categorias.add("Otros");

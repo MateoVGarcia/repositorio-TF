@@ -12,51 +12,107 @@
 </head>
 
 <body>
-    <header th:replace="~{/layouts/header :: header}"></header>
+
+    <div class="row">
+        <header th:replace="~{layouts/header :: header}"></header>
+    </div>
 
     <div class="container">
-        <h1>Tabla de Registros</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Email</th>
-                    <th>Contraseña</th>
-                    <th>Nacimiento</th>
-                    <th>Teléfono</th>
-                    <th>Sexo</th>
-                    <th>Estatura</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Aquí se mostrarán los datos del formulario -->
-                <tr th:each="Regis : ${registros}">
 
-                    <td th:text="${Regis.nombre}"></td>
+        <form class="row g-3" th:action="@{/registrarse/guardar}" th:object="${registro}" method="post">
+            <div class="col-6">
 
-                    <td th:text="${Regis.apellido}"></td>
+                <label for="nameInput" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="registro_nombre" th:field="*{nombre}"
+                    placeholder="Escriba su nombre">
 
-                    <td th:text="${Regis.email}"></td>
+            </div>
 
-                    <td th:text="${Regis.contraseña}"></td>
+            <div class="col-6">
 
-                    <td th:text="${Regis.nacimiento}"></td>
+                <label for="lastnameInput" class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="apellido" name="registro_apellido"
+                    th:field="*{apellido}" placeholder="Escriba su apellido">
 
-                    <td th:text="${Regis.telefono}"></td>
+            </div>
 
-                    <td th:text="${Regis.sexo}"></td>
+            <div class="col-12">
 
-                    <td th:text="${Regis.estatura}"></td>
+                <label for="emailInput" class="form-label">Correo Electrónico</label>              
+                <input id="email" type="text" class="form-control" name="registro_email" th:field="*{email}">
+						
 
-                    <td class="custom-button">
-                        <a class="cons_button" th:href="@{/nuevo_registro/modificar/}+${Regis.id}">Editar</a>
-                        <a class="cons_button" th:href="@{/nuevo_registro/eliminar/}+${Regis.id}">Eliminar</a>
-                    </td>
+            </div>         
 
-                </tr>
-            </tbody>
-        </table>
+            <div class="col-6">
+
+                <label for="nacimiento">Fecha de nacimiento<small></small></label>
+                <input type="date" class="form-control" id="nacimiento" name="registro_nacimiento"  th:field="*{nacimiento}">
+
+            </div>
+
+            <div class="col-6">
+
+                <label for="phoneInput" class="form-label">Teléfono</label>
+                <input type="number" class="form-control" id="telefono" name="registro_telefono" th:field="*{telefono}" placeholder="Escriba su número de teléfono">
+
+            </div>
+
+            <div class="col-6">
+
+                <label for="sexo">Sexo:</label>
+
+                <select class="form-control" name="sexo" id="sexo" th:field="*{sexo}" required>
+                    		<option value="Masculino">Masculino</option>
+							<option value="Femenino">Femenino</option>
+							<option value="Otros">Otros</option>
+                </select>
+                <div class="text-danger" th:if="${#fields.hasErrors('sexo')}" th:errors="*{sexo}"></div>
+
+            </div>
+
+            <div class="col-3">
+
+                <label for="estatura" class="form-label">Estatura</label>
+                <div class="range-container">
+
+                    <input type="number" class="form-control range-value" id="estatura" min="1" max="3" step="0.01"
+                        oninput="updateRange(this.value)" name="registro_estatura" th:field="*{estatura}">
+
+                </div>
+            </div>
+
+            <input type="number" value="${id}" name="registro_id" class="d-none" th:field="*{id}">
+            <p><input type="submit" class="button" value='Guardar'></p>
+
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <script>
+                var rangeSlider = document.getElementById('estatura');
+                var rangeValue = document.getElementById('rangeValue');
+
+                rangeSlider.addEventListener('input', function () {
+                    rangeValue.value = rangeSlider.value;
+                });
+
+                rangeValue.addEventListener('input', function () {
+                    rangeSlider.value = rangeValue.value;
+                });
+
+                function updateRange(value) {
+                    rangeSlider.value = value;
+                }
+
+                function updateValue(value) {
+                    rangeValue.value = value;
+                }
+            </script>
+        </form>
+    </div>
+
+    <div class="row">
+
+        <footer th:replace="~{layouts/footer :: footer}"></footer>
+
     </div>
 
 </body>

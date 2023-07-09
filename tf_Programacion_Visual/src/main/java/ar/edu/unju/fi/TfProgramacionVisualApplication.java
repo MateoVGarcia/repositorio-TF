@@ -9,7 +9,6 @@ import org.springframework.context.annotation.ComponentScan;
 
 
 @SpringBootApplication
-@ComponentScan("ar.edu.unju.fi.entity")
 public class TfProgramacionVisualApplication {
 
 	public static void main(String[] args) {

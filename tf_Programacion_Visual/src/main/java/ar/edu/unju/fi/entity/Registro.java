@@ -13,34 +13,51 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-
+@Component
 @Entity
 @Table(name = "registro")
 public class Registro {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
+    @Column(name = "regis_id")
     private Long id;
 
+    @Size(max=30, message="El nombre puede contener solo hasta 30 caracteres.")
+    @NotEmpty(message="El nombre no puede estar vacío.")
+    @Column(name = "regis_nombre" ,nullable = false,length = 30)
     private String nombre;
 
+    @Size(max=10, message="El apellido puede contener hasta 10 caracteres.")
+    @NotEmpty(message="El apellido no puede estar vacío.")
+    @Column(name = "regis_apellido", nullable = false, length = 10)
     private String apellido;
 
+    @NotEmpty(message="El email no puede quedar vacío.")
+    @Column(name = "regis_email", nullable = false)
     private String email;
 
-    private String contraseña;
-
+    @Past(message = "La fecha de nacimiento debe ser anterior a la fecha actual.")
+    @Column(name = "regis_nacimiento", nullable = false)
     private LocalDate nacimiento;
 
+    @Min(value=100000000L, message="El número de teléfono debe tener al menos 9 dígitos.")
+    @Column(name = "regis_telefono", nullable = false)
     private int telefono;
 
+    @NotEmpty
+    @Column(name = "regis_sexo", nullable = false)
     private String sexo;
 
+    @DecimalMin(value="1.0", inclusive = false, message="La estatura debe ser mayor que 1.")
+    @Column(name = "regis_estatura", nullable = false)
     private Double estatura;
     
     @Column(name="regis_estado")
@@ -51,27 +68,25 @@ public class Registro {
     public Registro() {
     }
     
-    public Registro(String nombre, String apellido, String email, String contraseña, LocalDate nacimiento,
+    public Registro(String nombre, String apellido, String email, LocalDate nacimiento,
             int telefono, String sexo, Double estatura, Long id) {
     	super();
     	this.id = id;
     	this.nombre = nombre;
 		this.apellido = apellido;
-		this.email = email;
-		this.contraseña = contraseña;
+		this.email = email;		
 		this.nacimiento = nacimiento;
 		this.telefono = telefono;
 		this.sexo = sexo;
 		this.estatura = estatura;
 		}
 
-    public Registro(String nombre, String apellido, String email, String contraseña, LocalDate nacimiento,
+    public Registro(String nombre, String apellido, String email, LocalDate nacimiento,
                     int telefono, String sexo, Double estatura) {
     	super();
     	this.nombre = nombre;
         this.apellido = apellido;
-        this.email = email;
-        this.contraseña = contraseña;
+        this.email = email;       
         this.nacimiento = nacimiento;
         this.telefono = telefono;
         this.sexo = sexo;
@@ -104,20 +119,12 @@ public class Registro {
 	}
 
 	public String getEmail() {
-		return email;
-	}
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getContraseña() {
-		return contraseña;
-	}
-
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }	
 
 	public LocalDate getNacimiento() {
 		return nacimiento;
