@@ -4,25 +4,39 @@ import java.time.LocalDate;
 
 import org.springframework.stereotype.Component;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Component
-/*@Entity*/
-//@Table(name="imc")
+@Entity
+@Table(name="imc")
 public class IndiceMasaCorporal {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="imc_id")
 	private Long id;
+	
+	@Column(name="imc_fecha")
 	private LocalDate fecha;
+	
+	@Column(name="imc_num_imc")
 	private Double imc;
+	
+	@Column(name="imc_usuario")
 	private String usuario;
+	
+	@Column(name="imc_estado")
 	private boolean estado;
 
 	public IndiceMasaCorporal() {
 	}
 
 	public IndiceMasaCorporal(Long id, LocalDate fecha, Double imc, String usuario) {
-		this.id = id;
 		this.fecha = fecha;
 		this.imc = imc;
 		this.usuario = usuario;
