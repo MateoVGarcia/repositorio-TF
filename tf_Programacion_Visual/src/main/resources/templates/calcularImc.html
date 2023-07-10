@@ -24,6 +24,7 @@
 					<div th:object="${id}">
 					<label for="idUsuario">Id</label> 
 					<input type="number" name="id"  class="form-control" id="id" placeholder="Ingrese su ID de usuario">
+					<h3 th:if="${incorrecto} == true" th:text="El id ingresado no pertenece a un usuario"></h3>
 					</div>
 						<label for="pesoActual">Peso Actual (Kg)</label> 
 						<input type="number" name="peso" step=0.01 class="form-control mb-4" id="peso" placeholder="Ingrese su peso actual" >

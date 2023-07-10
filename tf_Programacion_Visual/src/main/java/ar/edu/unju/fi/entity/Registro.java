@@ -73,8 +73,7 @@ public class Registro {
     @Column(name="regis_estado")
 	private boolean estado;
     
-    @OneToMany(cascade = CascadeType.ALL,
-    		fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "registro")
     private List<IndiceMasaCorporal> imc = new ArrayList<>();
 
     // Constructor, getters y setters

@@ -14,7 +14,7 @@
 
 		<!-- Resultado de índice de masa corporal -->
 		<div class="text-center m-4"> 
-        	<span class="d-inline-block bg-primary text-white p-2 rounded" th:block th:text="${resultadoIMC}"></span>
+       	<span class="d-inline-block bg-primary text-white p-2 rounded" th:block th:text="${resultadoIMC}"></span>
     	</div>
     	
 		<!-- Tabla de índice de masa corporal -->
@@ -28,10 +28,10 @@
 							<th>Fecha</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr th:each="registro : ${registro.imc}">
-							<td th:text="${registro.imc}"></td>
-							<td th:text="${registro.fecha}"></td>
+				 	<tbody>
+						<tr th:each="imc : ${registro.imc}">
+							<td th:text="${imc.imc}"></td>
+							<td th:text="${imc.fecha}"></td>
 						</tr>
 					</tbody>
 			</table>
