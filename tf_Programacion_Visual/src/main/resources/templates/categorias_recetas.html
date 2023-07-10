@@ -1,0 +1,144 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Categorias de Recetas</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+	crossorigin="anonymous">
+</head>
+<body>
+	<header th:replace="~{layouts/header :: header}"></header>
+
+	<h1 class="fs-1 text-center">Seleccione una categoría de recetas</h1>
+	<article>
+
+		<div class="d-flex-inline">
+			<ul
+				class="list-unstyled list-group list-group-horizontal justify-content-center">
+
+
+				<li class="list-group-item">
+					<div class="card ms-2" style="width: 18rem;">
+						<img src="../images/carne.png" class="card-img-top " alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Recetas de Carne</h5>
+							<p class="card-text">La carne puede ser preparada de muchas
+								maneras con muchos tipos de cocción. Descubrelas en ésta
+								categoría.</p>
+							<a th:href="@{/recetas/} + 'Carnes'" class="2 btn" style="background-color: #45BFA9; color: white; outline: none;">Buscar</a>
+						</div>
+					</div>
+				</li>
+
+				<li class="list-group-item">
+					<div class="card ms-2" style="width: 18rem;">
+						<img src="../images/bebidas.png" class="card-img-top mx-auto"
+							alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Recetas de Bebidas</h5>
+							<p class="card-text">Hay muchas texturas para bebidas, y de
+								distintos tipos. ¡Encuentralos en ésta página!</p>
+							<a th:href="@{/recetas/} + 'Bebidas'" class="2 btn" style="background-color: #45BFA9; color: white; outline: none;">Buscar</a>
+						</div>
+					</div>
+				</li>
+
+				<li class="list-group-item">
+					<div class="card ms-2" style="width: 18rem;">
+						<img src="../images/dulce.jpg" class="card-img-top mx-auto"
+							alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Recetas Dulces</h5>
+							<p class="card-text">Lo dulce no necesariamente es dañino
+								para la salud, encuentra los mejores postres y dulces en ésta
+								categoría.</p>
+							<a th:href="@{/recetas/} + 'Dulces'" class="2 btn" style="background-color: #45BFA9; color: white; outline: none;">Buscar</a>
+						</div>
+					</div>
+				</li>
+
+
+
+				<li class="list-group-item">
+					<div class="card ms-2" style="width: 18rem;">
+						<img src="../images/ensaladas.jpg" class="card-img-top mx-auto"
+							alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Recetas de Ensaladas</h5>
+							<p class="card-text">Distintos acompañamientos saludables
+								para tus comidas. Aprende de las mejores recetas de ensaladas.</p>
+							<a th:href="@{/recetas/} + 'Ensaladas'" class="2 btn" style="background-color: #45BFA9; color: white; outline: none;">Buscar</a>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<ul
+				class="list-unstyled list-group list-group-horizontal justify-content-center">
+				<li class="list-group-item">
+					<div class="card ms-2" style="width: 18rem;">
+						<img src="../images/cereales.jpg" class="card-img-top mx-auto"
+							alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Recetas de Cereales y Legumbres</h5>
+							<p class="card-text">Las mejores preparaciones con cereales
+								y/o legumbres.</p>
+							<a th:href="@{/recetas/} + 'Legumbres y Cereales'"
+								class="2 btn" style="background-color: #45BFA9; color: white; outline: none;">Buscar</a>
+						</div>
+					</div>
+				</li>
+
+				<li class="list-group-item">
+					<div class="card ms-2" style="width: 18rem;">
+						<img src="../images/pescados.jpg" class="card-img-top mx-auto"
+							alt="...">
+						<div class="card-body">
+							<h5 class="card-title">Recetas de Pescados</h5>
+							<p class="card-text">La fauna marítima es deliciosa,
+								sobretodo con una buena preparación y sazón correcto.
+								¡Descubrelos!</p>
+							<a th:href="@{/recetas/} + 'Pescados'" class="2 btn" style="background-color: #45BFA9; color: white; outline: none;">Buscar</a>
+						</div>
+					</div>
+				</li>
+
+
+				<ul class="list-unstyled list-group list-group-horizontal">
+					<li class="list-group-item">
+						<div class="card ms-2" style="width: 18rem;">
+							<img src="../images/pan.jpg" class="card-img-top mx-auto"
+								alt="...">
+							<div class="card-body d-block">
+								<h5 class="card-title">Recetas de Pan</h5>
+								<p class="card-text">Hay varias formas y tipos de panes, en
+									ésta categoría encontraras tu favorita</p>
+								<a th:href="@{/recetas/} + 'Pan'" class="2 btn" style="background-color: #45BFA9; color: white; outline: none;">Buscar</a>
+							</div>
+						</div>
+					</li>
+
+					<li class="list-group-item">
+						<div class="card ms-2" style="width: 18rem;">
+							<img src="../images/sopas.jpg" class="card-img-top mx-auto"
+								alt="...">
+							<div class="card-body d-block">
+								<h5 class="card-title">Recetas de Sopas y Cremas</h5>
+								<p class="card-text">Las mejores preparaciones de sopas y
+									cremas. ¡Animate a descubrir!</p>
+								<a th:href="@{/recetas/} + 'Sopas y Cremas'"
+									class="2 btn" style="background-color: #45BFA9; color: white; outline: none;">Buscar</a>
+							</div>
+						</div>
+					</li>
+
+				</ul>
+		</div>
+	</article>
+
+	<footer th:replace="~{layouts/footer :: footer}"></footer>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

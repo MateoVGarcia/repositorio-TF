@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+	<head>
+		<meta charset="UTF-8">
+		 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+		<link th:rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	</head>
+
+<body>
+	<header>
+		<!-- INICIO DE LA BARRA -->
+
+		<nav class="navbar navbar-expand-xl navbar-light bg-light">
+			<div class="container mx-3">
+				<img th:src="@{../../../images/logo.png}" style="width: 200px;" class="navbar-brand " alt="Logo de Nutricion">
+				<p class="m-4"></p>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarNav"
+					aria-controls="navbarNav" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				
+				<!-- INICIO DE LAS OPCIONES -->
+				<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+					<ul class="navbar-nav me-2">
+					
+					<!-- INICIO -->
+						<li class="nav-item dropdown mx-2">
+						<a class="nav-link dropdown-toggle" href=""
+							id="navbarDropdownInicio" role="button" data-bs-toggle="dropdown"
+							aria-expanded="false">INICIO</a>
+							
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdownInicio">
+								<li><a class="dropdown-item" th:href="@{/inicio}">Sobre nosotros</a></li>
+							</ul></li>
+							
+					<!-- SERVICIOS -->
+						<li class="nav-item dropdown mx-2"><a
+							class="nav-link dropdown-toggle" href=""
+							id="navbarDropdownProductos" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false">SERVICIOS</a>
+							<ul class="dropdown-menu"
+								aria-labelledby="navbarDropdownProductos">
+								<li><a class="dropdown-item" th:href="@{/calcularImc}">Calcular IMC</a></li>
+								<li><a class="dropdown-item" th:href="@{/pesoIdeal}">Peso Ideal</a></li>
+							</ul></li>
+							
+					<!-- RECETAS -->	
+						<li class="nav-item dropdown mx-2"><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownConsejos" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false">RECETAS</a>
+							<ul class="dropdown-menu"
+								aria-labelledby="navbarDropdownConsejos">
+								<li><a class="dropdown-item" th:href="@{/recetas}">Ver recetas</a></li>
+							</ul></li>
+							
+					<!-- TESTIMONIOS -->
+						<li class="nav-item dropdown mx-2"><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownServicios" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false">TESTIMONIOS</a>
+							<ul class="dropdown-menu"
+								aria-labelledby="navbarDropdownServicios">
+								<li><a class="dropdown-item" th:href="@{/testimonios}">Nuestros clientes</a></li>
+							</ul></li>
+							
+					<!-- CONTACTANOS -->	
+						<li class="nav-item dropdown mx-2"><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownSucursales" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false">CONTACTANOS</a>
+							<ul class="dropdown-menu"
+								aria-labelledby="navbarDropdownSucursales">
+								<li><a class="dropdown-item" th:href="@{/contacto}">Contactanos
+								</a></li>
+							</ul></li>
+						
+
+						<!-- GESTION DE DATOS -->
+						<li class="nav-item dropdown mx-2"><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownContactanos" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false">GESTION DE DATOS</a>
+							<ul class="dropdown-menu"
+								aria-labelledby="navbarDropdownContactanos">
+								<li><a class="dropdown-item" th:href="@{/gestion}">Gestionar</a></li>
+							</ul></li>
+							
+							<!-- REGISTRARME -->
+						<li class="nav-item dropdown mx-4 "><a class="nav-button btn"
+							style="background-color: #45BFA9; color: white; outline: none;" th:href="@{/registrarse/nuevo}">REGISTRARME</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		
+	</header>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	
+</body>
+</html>

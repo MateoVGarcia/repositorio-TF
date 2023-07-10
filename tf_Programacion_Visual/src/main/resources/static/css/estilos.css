@@ -1,0 +1,76 @@
+@charset "ISO-8859-1";
+*{
+	margin: 0px;
+	padding: 0px;
+	font-family: Georgia;
+	box-sizing: border-box;
+}
+/* Index */
+.index_body{
+	position: relative;
+	padding-bottom: 2.5em;
+	min-height: 100vh;
+	background-color: rgb(255, 255, 255);
+}
+
+/*Registrarse*/
+/*formulario*/
+#registresebody{
+	height:100vh;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+	background: linear-gradient(135deg);
+}
+
+#registrese{	
+	margin-top: 50px;
+	max-width:700px;
+    width:100%;
+    background: #2FE1BE;
+    border-radius: 10px;       
+    padding: 25px 30px;
+    margin-bottom: 50px;
+}
+
+/*tabla registro*/
+
+#contenido_registro table{
+	border: solid 1px black;
+	background-color: white;
+	
+}
+
+#contenido_registro tr:hover{
+	background-color: black;
+	color: white;
+}
+
+#contenido_registro thead tr th{
+	background-color: #45BFA9;
+	text-align: center;
+	border-collapse: collapse;
+}
+
+#contenido_registro td:hover{
+	background-color: white;
+      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+#contenido_registro  .custom-button {
+    
+      
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Helvetica', sans-serif; 
+      
+    }
+
+#contenido_registro .custom-button a:hover {
+
+      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+      color: white;
+    }
