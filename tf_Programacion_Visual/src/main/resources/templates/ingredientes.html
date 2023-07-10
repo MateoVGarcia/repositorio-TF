@@ -11,21 +11,30 @@
 	crossorigin="anonymous">
 </head>
 <body>
-<a th:href="@{/recetas/ingredientes/nuevo}" class="btn btn-primary col-md-1">Agregar</a><br>
-<a th:href="@{/recetas}" class="btn btn-danger col-md-1">Volver</a>
-<div class="table-responsive-sm mb-3">
+	
+		<div class="row">
+			<div></div>
+			<div class="container px-4 ">
+				<div class="d-grid gap-2">	
+					<div class="col-5"></div>
+					
+					<a th:href="@{/recetas}" class="btn btn-danger pd-3 col-2 ">Volver</a>
+					<div class="col-5"></div>
+				</div>	
+			</div>	
+			
+		</div>	
+					<div class="table-responsive-sm mb-3">
+								
 								<div class="container justify-content-center">
 									<table class="table table-striped">
 										<tr>
 											<th>Ingrediente</th>
-											<th>Acciones</th>
+											
 										</tr>
 										<tr th:each="ingr: ${ingredientes}">
 											<td class="th"><a th:text="${ingr.nombre}"> </a></td>
-											<td><a
-												th:href="@{/recetas/ingredientes/modificar/}+${ingr.id}">Editar</a> <a
-												class="cons_button"
-												th:href="@{/recetas/ingredientes/eliminar/}+${ingr.id}">Eliminar</a></td>
+
 										</tr>
 									</table>
 								</div>
