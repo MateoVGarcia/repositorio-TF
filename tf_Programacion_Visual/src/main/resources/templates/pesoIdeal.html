@@ -26,9 +26,7 @@
             			<label for="id">Codigo de Usuario</label>
             			<input type="text" class="form-control" name="id" id="id" placeholder="Ingrese su codigo de usuario" required>
           			</div>
-          			<div class="alert alert-danger">
-					<p th:if="${mensaje}" th:text="${mensaje}"></p>
-					</div>
+					<p th:if="${mensaje}" class="alert alert-danger" th:text="${mensaje}"></p>
 					
 					<button type="submit" class="btn btn-primary mb-3">Calcular Peso Ideal</button>
 				</form>
