@@ -11,6 +11,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
+ <header th:replace="~{/layouts/header :: header}"></header>
 <form th:action="${edicion}?@{/recetas/ingredientes/modificar}:@{/recetas/ingredientes/guardar}"
 			th:object="${ingrediente}" method="POST" id="nuevoingrediente">
 <input type="number" value=${id} name="ingrediente_id" class="d-none" th:field="*{id}">
