@@ -10,18 +10,19 @@ public interface IIndiceMasaCorporalService {
 	// Listar IMC
     List<IndiceMasaCorporal> getLista();
 
-    // Guardar productos
+    // Guardar IMC
     void guardarIMC(IndiceMasaCorporal imc);
 
-    // Obtener producto por código
+    // Obtener IMC por id
     public IndiceMasaCorporal getBy(Long id);
 
-    // Eliminar un producto
+    // Eliminar un IMC
     void eliminarIMC(IndiceMasaCorporal imcEncontrado);
 
-    // Obtener producto nuevo
+    // Obtener IMC nuevo
     IndiceMasaCorporal getIMC();
     
+    //Calcular el IMC de una persona
     String calcularIMC(Double peso, Double altura);
 
 }

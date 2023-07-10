@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import ar.edu.unju.fi.entity.Registro;
 import ar.edu.unju.fi.service.ICommonService;
 import ar.edu.unju.fi.service.IRegistrarseService;
@@ -20,87 +19,78 @@ import java.util.List;
 public class RegistrarseController {
 
 	@Autowired
-    private IRegistrarseService registrarseService;
+	private IRegistrarseService registrarseService;
 	@Autowired
-    private ICommonService commonService;
-	
-	
-	
-	@GetMapping
-	public String getListadoRegistrosPage(Model model, @RequestParam(name = "sexo", required = false) String sexo) {
-	    List<Registro> registros = registrarseService.getListaR(sexo);
-	    model.addAttribute("registros", registros); // Asegúrate de agregar la lista al modelo con el nombre "registros"
-	    model.addAttribute("sexo", sexo);
-	    return "registrarse";
+	private ICommonService commonService;
+
+	@GetMapping("/nuevo")
+	public String getNuevoRegistroPage(Model model) {
+		boolean edicion = false;
+		Registro registro = new Registro();
+		model.addAttribute("registro", registro);
+		model.addAttribute("sexo", commonService.getRegistroSexo());
+		model.addAttribute("edicion", edicion);
+		return "nuevo_registro";
 	}
 
-    @GetMapping("/nuevo")
-    public String getNuevoRegistroPage(Model model) {
-        boolean edicion = false;
-        Registro registro = new Registro();
-        model.addAttribute("registro", registro);
-        model.addAttribute("sexo", commonService.getRegistroSexo());
-        model.addAttribute("edicion", edicion);
-        return "nuevo_registro";
-    }
+	@GetMapping("/modificar/{id}")
+	public String getModificarRegistroPage(Model model, @PathVariable(value = "id") Long id) {
+		boolean edicion = true;
+		Registro registroEncontrado = registrarseService.getBy(id);
+		if (registroEncontrado == null) {
+			return "redirect:/gestion";
+		}
+		model.addAttribute("registro", registroEncontrado);
+		model.addAttribute("sexo", commonService.getRegistroSexo());
+		model.addAttribute("edicion", edicion);
+		return "nuevo_registro";
+	}
 
-    @GetMapping("/modificar/{id}")
-    public String getModificarRegistroPage(Model model, @PathVariable(value = "id") Long id) {
-        boolean edicion = true;
-        Registro registroEncontrado = registrarseService.getBy(id);
-        if (registroEncontrado == null) {
-            return "redirect:/registrarse/listado";
-        }
-        model.addAttribute("registro", registroEncontrado);
-        model.addAttribute("sexo", commonService.getRegistroSexo());
-        model.addAttribute("edicion", edicion);
-        return "nuevo_registro";
-    }
+	@PostMapping("/modificar")
+	public ModelAndView modificarRegistro(@Valid @ModelAttribute("registro") Registro registro, BindingResult result) {
+		ModelAndView modelView = new ModelAndView("registrarse");
+		boolean edicion = true;
+		if (result.hasErrors()) {
+			modelView.setViewName("nuevo_registro");
+			modelView.addObject("registro", registro);
+			modelView.addObject("sexo", commonService.getRegistroSexo());
+			modelView.addObject("edicion", edicion);
+			return modelView;
+		}
+		registrarseService.guardarRegistro(registro);
+		return new ModelAndView("redirect:/gestion");
+	}
 
-    @PostMapping("/modificar")
-    public ModelAndView modificarRegistro(@Valid @ModelAttribute("registro") Registro registro, BindingResult result) {
-        ModelAndView modelView = new ModelAndView("registrarse");
-        boolean edicion = true;
-        if (result.hasErrors()) {
-            modelView.setViewName("nuevo_registro");
-            modelView.addObject("registro", registro);
-            modelView.addObject("sexo", commonService.getRegistroSexo());
-            modelView.addObject("edicion", edicion);
-            return modelView;
-        }
-        registrarseService.guardarRegistro(registro);
-        return new ModelAndView("redirect:/registrarse/listado");
-    }
+	@PostMapping("/guardar")
+	public ModelAndView guardarRegistro(@Valid @ModelAttribute("registro") Registro registro,
+			BindingResult bindingResult) {
+		ModelAndView modelView = new ModelAndView();
 
-    @PostMapping("/guardar")
-    public ModelAndView guardarRegistro(@Valid @ModelAttribute("registro") Registro registro, BindingResult bindingResult) {
-        ModelAndView modelView = new ModelAndView();
+		if (bindingResult.hasErrors()) {
+			// Si hay errores de validación, regresar al formulario con los errores
+			modelView.addObject("sexo", commonService.getRegistroSexo());
+			modelView.setViewName("nuevo_registro");
+			modelView.addObject("registro", registro);
+			return modelView;
+		} else {
+			// Si no hay errores, guardar el registro en la base de datos
+			registrarseService.guardarRegistro(registro);
 
-        if (bindingResult.hasErrors()) {
-            // Si hay errores de validación, regresar al formulario con los errores
-        	modelView.addObject("sexo", commonService.getRegistroSexo());
-        	modelView.setViewName("nuevo_registro");
-            modelView.addObject("registro", registro);
-            return modelView;
-        } else {
-            // Si no hay errores, guardar el registro en la base de datos
-            registrarseService.guardarRegistro(registro);
+			// Obtener la lista actualizada de registros
+			List<Registro> registros = registrarseService.getListaR();
 
-            // Obtener la lista actualizada de registros
-            List<Registro> registros = registrarseService.getListaR(null);
+			modelView.setViewName("redirect:/");
+			modelView.addObject("registros", registros);
+			modelView.addObject("sexo", null); // Restablecer la categoría (puedes ajustar esto según tu lógica)
 
-            modelView.setViewName("registrarse");
-            modelView.addObject("registros", registros);
-            modelView.addObject("sexo", null); // Restablecer la categoría (puedes ajustar esto según tu lógica)
+			return modelView;
+		}
+	}
 
-            return modelView;
-        }
-    }
-
-    @GetMapping("/eliminar/{id}")
-    public String eliminarRegistro(@PathVariable(value = "id") Long id) {
-        Registro registroEncontrado = registrarseService.getBy(id);
-        registrarseService.eliminarRegistro(registroEncontrado);
-        return "redirect:/registrarse/listado";
-    }
+	@GetMapping("/eliminar/{id}")
+	public String eliminarRegistro(@PathVariable(value = "id") Long id) {
+		Registro registroEncontrado = registrarseService.getBy(id);
+		registrarseService.eliminarRegistro(registroEncontrado);
+		return "redirect:/gestion";
+	}
 }

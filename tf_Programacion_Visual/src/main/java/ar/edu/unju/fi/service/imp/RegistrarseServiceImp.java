@@ -20,7 +20,7 @@ public class RegistrarseServiceImp implements IRegistrarseService {
 	private Registro registro;
 
 	@Override
-	public List<Registro> getListaR(String categoriaR) {
+	public List<Registro> getListaR() {
         return registrarseRepository.findByEstado(true);
     }
 

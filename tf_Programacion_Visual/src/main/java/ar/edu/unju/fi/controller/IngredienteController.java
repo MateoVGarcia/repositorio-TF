@@ -22,70 +22,74 @@ import org.springframework.validation.BindingResult;
 public class IngredienteController {
 	@Autowired
 	IIngredienteService ingredService;
-	
-	//Pagina con el listado de los consejos (Cada uno está separado por categoría con th:if)
-@GetMapping("/listado")
-public String getIngredientesPage(Model model) {
-	model.addAttribute("ingredientes", ingredService.getLista());
-	return "ingredientes";
-}
 
+	// CRUD BASICO
 
-	//Pagina para crear un consejo nuevo
-@GetMapping("/nuevo")
-public String getNuevoIngredientePage(Model model) {
-	boolean edicion = false ;
-	model.addAttribute("ingrediente", ingredService.getIngrediente());
-	model.addAttribute("edicion",edicion);
-	return "nuevo_ingrediente";
-}
+	// Pagina con el listado de los ingredientes
+	@GetMapping("/listado")
+	public String getIngredientesPage(Model model) {
+		model.addAttribute("ingredientes", ingredService.getLista());
+		return "ingredientes";
+	}
 
-@GetMapping("/modificar/{id}")
-public String getModificarIngredientePage(Model model,@PathVariable(value="id")Long id){
-	boolean edicion = true;
-	Ingrediente ingredienteEncontrado = ingredService.getBy(id);
-	model.addAttribute("ingrediente", ingredienteEncontrado);
-	model.addAttribute("edicion",edicion);
-	
-	return "nuevo_ingrediente";	
-}
+	// Pagina para crear un ingrediente nuevo
+	@GetMapping("/nuevo")
+	public String getNuevoIngredientePage(Model model) {
+		boolean edicion = false;
+		model.addAttribute("ingrediente", ingredService.getIngrediente());
+		model.addAttribute("edicion", edicion);
+		return "nuevo_ingrediente";
+	}
 
-@PostMapping("/modificar")
-public ModelAndView postModificarIngredientePage(@Valid @ModelAttribute("ingrediente")Ingrediente ingrediente, BindingResult result) {
-	ModelAndView modelView = new ModelAndView("ingredientes");
-	boolean edicion = true;
-	if(result.hasErrors()) {
-		modelView.setViewName("nuevo_ingrediente");
-		modelView.addObject("ingrediente", ingrediente);
-		modelView.addObject("edicion", edicion);
+//Modificar por el id un ingrediente
+	@GetMapping("/modificar/{id}")
+	public String getModificarIngredientePage(Model model, @PathVariable(value = "id") Long id) {
+		boolean edicion = true;
+		Ingrediente ingredienteEncontrado = ingredService.getBy(id);
+		model.addAttribute("ingrediente", ingredienteEncontrado);
+		model.addAttribute("edicion", edicion);
+
+		return "nuevo_ingrediente";
+	}
+
+//Post de modificar un ingrediente
+	@PostMapping("/modificar")
+	public ModelAndView postModificarIngredientePage(@Valid @ModelAttribute("ingrediente") Ingrediente ingrediente,
+			BindingResult result) {
+		ModelAndView modelView = new ModelAndView("ingredientes");
+		boolean edicion = true;
+		if (result.hasErrors()) {
+			modelView.setViewName("nuevo_ingrediente");
+			modelView.addObject("ingrediente", ingrediente);
+			modelView.addObject("edicion", edicion);
+			return modelView;
+		}
+		ingredService.guardar(ingrediente);
+		modelView.addObject("ingredientes", ingredService.getLista());
 		return modelView;
 	}
-	ingredService.guardar(ingrediente);
-	modelView.addObject("ingredientes", ingredService.getLista());
-	return modelView;
-}
 
-	//Pagina de guardado de los consejos
-@PostMapping("/guardar")
-public ModelAndView getGuardarIngredientePage(@Valid @ModelAttribute("ingrediente")Ingrediente ingrediente, BindingResult result) {
-	ModelAndView modelView = new ModelAndView("ingredientes");
-	if(result.hasErrors()) {
-		modelView.setViewName("nuevo_ingrediente");
-		modelView.addObject("ingrediente", ingrediente);
+	// Pagina de guardado de los consejos
+	@PostMapping("/guardar")
+	public ModelAndView getGuardarIngredientePage(@Valid @ModelAttribute("ingrediente") Ingrediente ingrediente,
+			BindingResult result) {
+		ModelAndView modelView = new ModelAndView("redirect:/gestion");
+		if (result.hasErrors()) {
+			modelView.setViewName("nuevo_ingrediente");
+			modelView.addObject("ingrediente", ingrediente);
+			return modelView;
+		}
+		ingredService.guardar(ingrediente);
+		modelView.addObject("ingredientes", ingredService.getLista());
 		return modelView;
 	}
-	ingredService.guardar(ingrediente);
-	modelView.addObject("ingredientes", ingredService.getLista());
-	return modelView;
-}
 
-	//Pagina para eliminar consejos
-@GetMapping("/eliminar/{id}")
-public String eliminarIngrediente(@PathVariable(value="id") Long id) {
-			Ingrediente ingredienteEncontrado = ingredService.getBy(id);
-			ingredService.eliminar(ingredienteEncontrado);
+	// Pagina para eliminar ingredientes
+	@GetMapping("/eliminar/{id}")
+	public String eliminarIngrediente(@PathVariable(value = "id") Long id) {
+		Ingrediente ingredienteEncontrado = ingredService.getBy(id);
+		ingredService.eliminar(ingredienteEncontrado);
 
-	
-	 return"redirect:/recetas/ingredientes";
-}
+		return "redirect:/gestion";
+	}
 }
