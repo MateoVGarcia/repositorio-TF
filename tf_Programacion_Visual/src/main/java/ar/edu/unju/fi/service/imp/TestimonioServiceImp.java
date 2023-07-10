@@ -1,5 +1,6 @@
 package ar.edu.unju.fi.service.imp;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,8 @@ public class TestimonioServiceImp implements ITestimonioService{
 
 	@Override
 	public Testimonio getTestimonio() {
-
+		LocalDate fechaActual = LocalDate.now();
+		testimonio.setFecha(fechaActual);
 		return testimonio;
 	}
 
