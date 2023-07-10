@@ -11,8 +11,8 @@ import ar.edu.unju.fi.service.IPesoIdealService;
 public class PesoIdealServiceImp implements IPesoIdealService {
 
 	 @Override
-	    public Double calcularPesoIdeal(double estatura, int edad) {
-	        return estatura - 100 + (edad / 10) * 0.9;
+	    public Double calcularPesoIdeal(Double estatura, int edad) {
+	        return (estatura*100) - 100 + (edad / 10) * 0.9;
 	    }
 	 
 	 

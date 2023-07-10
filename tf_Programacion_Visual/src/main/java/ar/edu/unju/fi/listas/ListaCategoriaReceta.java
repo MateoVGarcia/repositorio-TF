@@ -1,4 +1,4 @@
-package ar.edu.unju.fi.lista;
+package ar.edu.unju.fi.listas;
 
 import java.util.ArrayList;
 import java.util.List;
