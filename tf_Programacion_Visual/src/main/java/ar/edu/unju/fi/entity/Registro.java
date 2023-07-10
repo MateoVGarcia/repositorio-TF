@@ -75,6 +75,9 @@ public class Registro {
     @Column(name="regis_estado")
 	private boolean estado;
     
+    @Column(name="regis_admin")
+    private boolean admin;
+    
     @OneToMany(mappedBy = "registro")
     private List<IndiceMasaCorporal> imc = new ArrayList<>();
     
@@ -88,7 +91,7 @@ public class Registro {
     }
     
     public Registro(String nombre, String apellido, String email, LocalDate nacimiento,
-           	Long telefono, String sexo, Double estatura, Long id) {
+           	Long telefono, String sexo, Double estatura, Long id, boolean admin) {
     	super();
     	this.id = id;
     	this.nombre = nombre;
@@ -98,6 +101,7 @@ public class Registro {
 		this.telefono = telefono;
 		this.sexo = sexo;
 		this.estatura = estatura;
+		this.admin=admin;
 		}
 
 
@@ -184,6 +188,22 @@ public class Registro {
 	
 	public void añadirImc(IndiceMasaCorporal imc) {
 		this.imc.add(imc);
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
+	public Testimonio getTestimonio() {
+		return testimonio;
+	}
+
+	public void setTestimonio(Testimonio testimonio) {
+		this.testimonio = testimonio;
 	}
     
 }

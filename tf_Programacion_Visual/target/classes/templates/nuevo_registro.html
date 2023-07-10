@@ -82,7 +82,12 @@
             </div>
 
             <input type="number" value="${id}" name="registro_id" class="d-none" th:field="*{id}">
-            <p><input type="submit" class="button" value='Guardar'></p>
+            <div class="row">
+            <div class="col-3">
+			<label for="admin" class="form-label">¿Es este usuario un Administrador?</label>
+			<input type="checkbox" th:field="*{admin}" name="admin" id="admin" class="form-checkbox">
+			</div>
+            <p><input type="submit" class="button" value='Guardar'></p></div>
 
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
             <script>

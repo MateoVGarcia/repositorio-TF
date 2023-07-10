@@ -5,16 +5,16 @@ import ar.edu.unju.fi.entity.Receta;
 
 public interface IRecetaService {
 
-	//Listado de Consejos
+	//Listado de recetas
 	List<Receta> getLista();
-	//Guardado de consejos
+	//Guardado de recetas
 	void guardar(Receta receta);
-	//Obtener un consejo segun su descripcion
+	//Obtener un receta segun su id
 	Receta getBy(Long id);
 	//Obtener recetas segun categoria
 	List<Receta> getListaCategoria(String categoria);
-	//Eliminar un consejo
+	//Eliminar una receta
 	void eliminar(Receta recetaEncontrada);
-	//Generar un nuevo consejo
+	//Generar una nueva receta
 	Receta getReceta();
 }

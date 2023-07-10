@@ -10,7 +10,7 @@ import ar.edu.unju.fi.entity.Registro;
 public interface IRegistrarseService {
     
 	// Listar productos
-    List<Registro> getListaR(String sexo);
+    List<Registro> getListaR();
 
     // Guardar productos
     void guardarRegistro(Registro registro);
