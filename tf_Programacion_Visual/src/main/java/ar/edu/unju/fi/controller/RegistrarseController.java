@@ -79,7 +79,8 @@ public class RegistrarseController {
 			// Obtener la lista actualizada de registros
 			List<Registro> registros = registrarseService.getListaR();
 
-			modelView.setViewName("redirect:/");
+			modelView.setViewName("registrarse");
+			modelView.addObject("mensaje", "Registro exitoso! Tu nuevo numero de ID es: " + registro.getId() + ". Guardalo bien.");
 			modelView.addObject("registros", registros);
 			modelView.addObject("sexo", null); // Restablecer la categoría (puedes ajustar esto según tu lógica)
 

@@ -12,7 +12,7 @@ private List<String> sexo;
 	
 	public ListaRegistrarseSexo() {
 		sexo= new ArrayList<String>();
-		sexo.add("Eliga un sexo");
+		sexo.add("Elija un sexo");
 		sexo.add("Masculino");
 		sexo.add("Femenino");
 		sexo.add("Otros");

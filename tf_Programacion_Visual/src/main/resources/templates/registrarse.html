@@ -15,55 +15,7 @@
     </div>
     
     <div id="contenido_registro" class="container">
-    	<div th:if="${nombreRegistrado != null && apellidoRegistrado != null && idRegistrado != null}" class="alert alert-success">
-        ¡Felicitaciones! ¡El registro de <span th:text="${nombreRegistrado}"></span> <span th:text="${apellidoRegistrado}"></span> se ha guardado exitosamente con el ID <span th:text="${idRegistrado}"></span>!
-    	</div>
-    	
-        <h1>Tabla de Registrados</h1>
-        <div class="table-responsive">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                	<th>Id</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Email</th>                    
-                    <th>Nacimiento</th>
-                    <th>Teléfono</th>
-                    <th>Sexo</th>
-                    <th>Estatura</th>
-                    <th>Operaciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Aquí se mostrarán los datos del formulario -->
-                <tr th:each="Regis : ${registro}">
-					
-					<td th:text="${Regis.id}"></td>        
-					
-                    <td th:text="${Regis.nombre}"></td>                 
-
-                    <td th:text="${Regis.apellido}"></td>
-
-                    <td th:text="${Regis.email}"></td>                    
-
-                    <td th:text="${Regis.nacimiento}"></td>
-
-                    <td th:text="${Regis.telefono}"></td>
-
-                    <td th:text="${Regis.sexo}"></td>
-
-                    <td th:text="${Regis.estatura}"></td>
-
-                    <td class="custom-button">
-                        <a class="btn btn-success rounded-pill px-3" th:href="@{/registrarse/modificar/}+${Regis.id}">Editar</a>
-                        <a class="btn btn-danger rounded-pill px-3" th:href="@{/registrarse/eliminar/}+${Regis.id}">Eliminar</a>
-                    </td>
-
-                </tr>
-            </tbody>
-        </table>
-        </div>
+    	<p class="text-center fs-2"th:text="${mensaje}"></p>
     </div>
 		<div class="row">
         	<footer th:replace="~{layouts/footer :: footer}"></footer>
