@@ -20,23 +20,14 @@
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
 				<h2 class="mb-4">Calcular Peso Ideal</h2>
-				<form>
+				<form action="/calculoPesoIdeal" method="post">
 				
 					  <div class="form-group mb-3">
-            			<label for="nombre">Codigo de Usuario</label>
-            			<input type="text" class="form-control" id="codigo" placeholder="Ingrese su codigo de usuario" required>
+            			<label for="id">Codigo de Usuario</label>
+            			<input type="text" class="form-control" name="id" id="id" placeholder="Ingrese su codigo de usuario" required>
           			</div>
 					
-					<div class="form-group mb-3">
-						<label for="estatura">Estatura (cm)</label> <input type="number"
-							class="form-control" id="estatura"
-							placeholder="Ingrese su estatura" required>
-					</div>
-					<div class="form-group mb-3">
-						<label for="edad">Edad</label> <input type="number"
-							class="form-control" id="edad" placeholder="Ingrese su edad"
-							required>
-					</div>
+					
 					<button type="submit" class="btn btn-primary mb-3">Calcular Peso Ideal</button>
 				</form>
 			</div>
@@ -55,7 +46,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>70</td>
+							 <td th:text="${pesoIdeal}"></td>
 						</tr>
 					</tbody>
 				</table>

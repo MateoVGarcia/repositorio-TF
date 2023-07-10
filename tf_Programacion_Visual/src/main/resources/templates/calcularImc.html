@@ -19,52 +19,22 @@
 			<div class="col-md-6 offset-md-3">
 				<h2 class="mb-4">Calcular IMC</h2>
 				<form th:action="@{/calcularImc/calculo}"
-					th:object="${imc}" method="post" id="nuevoimc" class="form-control">
+					th:object="${imc}" method="post" id="nuevoimc" class="form-control mb-5">
 					<div class="form-group">
 					<div th:object="${id}">
 					<label for="idUsuario">Id</label> 
-					<input type="number" name="id"  class="form-control" id="id" placeholder="Ingrese su ID de usuario">
+					<input type="number" name="id"  class="form-control mb-2" id="id" placeholder="Ingrese su ID de usuario">
+					<p th:if="${mensaje}" th:text="${mensaje}"></p>
 					</div>
 						<label for="pesoActual">Peso Actual (Kg)</label> 
-						<input type="number" name="peso" step=0.01 class="form-control mb-4" id="peso" placeholder="Ingrese su peso actual" >
+						<input type="number" name="peso" step=0.01 class="form-control mb-2" id="peso" placeholder="Ingrese su peso actual" >
+						<p th:if="${mensaje2}" th:text="${mensaje2}"></p>
 					</div>
 					<button type="submit" class="btn btn-primary">Calcular IMC</button>
 				</form>
 			</div>
 		</div>
-
-		<!-- Tabla de índice de masa corporal -->
-		<div class="row mt-4">
-			<div class="col-md-8 offset-md-2">
-				<h2>Registros de IMC</h2>
-				<table class="table table-bordered table-striped">
-					<thead class="thead-dark">
-						<tr>
-							<th>Peso (Kg)</th>
-							<th>IMC</th>
-							<th>Fecha</th>
-							<th>Estado</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>70</td>
-							<td>22.5</td>
-							<td>2023-06-30</td>
-							<td>Está en su peso normal</td>
-						</tr>
-						<tr>
-							<td>85</td>
-							<td>30.1</td>
-							<td>2023-06-29</td>
-							<td>Tiene sobrepeso</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
 		</div>
-	</div>
-
 
 	<footer th:replace="~{layouts/footer :: footer}"></footer>
 	

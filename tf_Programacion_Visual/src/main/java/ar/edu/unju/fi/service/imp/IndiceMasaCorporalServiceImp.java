@@ -51,9 +51,18 @@ public class IndiceMasaCorporalServiceImp implements IIndiceMasaCorporalService 
 	}
 
 	@Override
-	public Double calcularIMC(Double peso, Double altura) {
+	public String calcularIMC(Double peso, Double altura) {
 		Double imc = peso/Math.pow(altura, 2);
-		return imc;
+		String resultado;
+		 if (imc < 18.5) {
+		        resultado = "Su IMC es " + imc + " - Está por debajo de su peso ideal.";
+		    } else if (imc >= 18.5 && imc <= 25) {
+		        resultado = "Su IMC es " + imc + " - Está en su peso normal.";
+		    } else {
+		        resultado = "Su IMC es " + imc + " - Tiene sobrepeso.";
+		    }
+
+		    return resultado;
 	}
 
 }
