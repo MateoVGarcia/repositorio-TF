@@ -18,10 +18,15 @@
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
 				<h2 class="mb-4">Calcular IMC</h2>
-				<form>
+				<form th:action="@{/calcularImc/calculo}"
+					th:object="${imc}" method="post" id="nuevoimc" class="form-control">
 					<div class="form-group">
+					<div th:object="${id}">
+					<label for="idUsuario">Id</label> 
+					<input type="number" name="id"  class="form-control" id="id" placeholder="Ingrese su ID de usuario">
+					</div>
 						<label for="pesoActual">Peso Actual (Kg)</label> 
-						<input type="number" class="form-control mb-4" id="pesoActual" placeholder="Ingrese su peso actual" required>
+						<input type="number" name="peso" step=0.01 class="form-control mb-4" id="peso" placeholder="Ingrese su peso actual" >
 					</div>
 					<button type="submit" class="btn btn-primary">Calcular IMC</button>
 				</form>
