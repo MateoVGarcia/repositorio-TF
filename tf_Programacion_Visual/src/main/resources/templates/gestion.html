@@ -8,17 +8,24 @@
 	<link th:rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 </head>
 <body>
+
+<header th:replace="~{layouts/header :: header}"></header>	
 <h1 class="text-center"> ¿Es usted un administrador y desea gestionar datos?</h1>
 <h2 class="text-center">Ingrese su id:</h2>
-<form th:action="@{/gestion/admin}" method="post">
+		<form th:action="@{/gestion/admin}" method="post">
 				
 					  <div class="form-group mb-3">
             			<label for="id">Codigo de Usuario</label>
             			<input type="text" class="form-control" name="id" id="id" placeholder="Ingrese su codigo de usuario" required>
           			</div>
 					<p th:if="${mensaje}" th:text="${mensaje}"></p>
-					
-					<button type="submit" class="btn btn-primary mb-3">Calcular Peso Ideal</button>
-				</form>
+					<div class="form-group mb-3">
+					 <input type="checkbox"  class="form-check-input" id="admin" name="admin">
+    				<label class="form-check-label" for="admin">Administrador</label>
+					</div>
+		</form>
+		
+		<footer th:replace="~{layouts/footer :: footer}"></footer>
 </body>
+
 </html>

@@ -77,18 +77,8 @@
 								</a></li>
 							</ul></li>
 						
-					<!-- REGISTRARME -->	
-						<li class="nav-item dropdown mx-2"><a
-							class="nav-link dropdown-toggle" href="#"
-							id="navbarDropdownSucursales" role="button"
-							data-bs-toggle="dropdown" aria-expanded="false">REGISTRARME</a>
-							<ul class="dropdown-menu"
-								aria-labelledby="navbarDropdownSucursales">
-								<li><a class="dropdown-item" th:href="@{/registrarse}">Registrate
-								</a></li>
-							</ul></li>
-							
-					<!-- GESTION DE DATOS -->
+
+						<!-- GESTION DE DATOS -->
 						<li class="nav-item dropdown mx-2"><a
 							class="nav-link dropdown-toggle" href="#"
 							id="navbarDropdownContactanos" role="button"
@@ -97,6 +87,10 @@
 								aria-labelledby="navbarDropdownContactanos">
 								<li><a class="dropdown-item" th:href="@{/gestion}">Gestionar</a></li>
 							</ul></li>
+							
+							<!-- REGISTRARME -->
+						<li class="nav-item dropdown mx-4 "><a class="nav-button btn"
+							style="background-color: #45BFA9; color: white; outline: none;" th:href="@{/registrarse/nuevo}">REGISTRARME</a></li>
 					</ul>
 				</div>
 			</div>
