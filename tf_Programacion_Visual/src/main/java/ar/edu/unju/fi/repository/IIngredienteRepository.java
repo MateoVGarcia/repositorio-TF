@@ -11,4 +11,6 @@ public interface IIngredienteRepository extends CrudRepository<Ingrediente, Long
 
 	public List<Ingrediente> findByEstado(boolean estado);
 	
+
+	
 }

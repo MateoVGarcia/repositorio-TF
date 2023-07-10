@@ -2,6 +2,7 @@ package ar.edu.unju.fi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,7 @@ public class IngredienteController {
 	IIngredienteService ingredService;
 	
 	//Pagina con el listado de los consejos (Cada uno está separado por categoría con th:if)
-@GetMapping
+@GetMapping("/listado")
 public String getIngredientesPage(Model model) {
 	model.addAttribute("ingredientes", ingredService.getLista());
 	return "ingredientes";

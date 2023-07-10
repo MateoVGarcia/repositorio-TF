@@ -11,6 +11,8 @@ public interface IRecetaService {
 	void guardar(Receta receta);
 	//Obtener un consejo segun su descripcion
 	Receta getBy(Long id);
+	//Obtener recetas segun categoria
+	List<Receta> getListaCategoria(String categoria);
 	//Eliminar un consejo
 	void eliminar(Receta recetaEncontrada);
 	//Generar un nuevo consejo

@@ -14,7 +14,7 @@
 		<h4 class="text-center fs-1">Recetas Saludables</h4>
 		<a th:href="@{/recetas/nuevo}" class="btn btn-primary col-md-1">Agregar</a> 
 		<div class="text-end">
-		<a th:href="@{/recetas/ingredientes}" class="btn btn-primary col-md-1">Lista de ingredientes</a>
+		<a th:href="@{/recetas/ingredientes/listado}" class="btn btn-primary col-md-1">Lista de ingredientes</a>
 		</div><br><br>
 	</div>
 	<div class="row">
@@ -25,7 +25,7 @@
 		<table>
 			<tbody>
 				<div class="card text-center ms-3" style="width: 16rem;"
-					th:each="receta : ${recetas}">
+					th:each="receta : ${recetas}" >
 					<ul style="list-style: none">
 						<li><img class="card-img-top rounded mx-auto d-block img-fluid ps-n3"
 							th:src="@{'/recetas/uploads/'}+ ${receta.imagen}"

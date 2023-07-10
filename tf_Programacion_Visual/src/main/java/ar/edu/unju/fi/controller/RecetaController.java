@@ -62,12 +62,15 @@ public class RecetaController {
 //	 public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/uploads";
 	 
 @GetMapping
-public String getRecetasPage(Model model) {
-	model.addAttribute("recetas", recetaService.getLista());
-	return "recetas";
+public String getCategoriaRecetasPage(Model model) {
+	return "categorias_recetas";
 }
 
-
+@GetMapping("/{categoria}")
+public String getRecetasPage(Model model, @PathVariable(value="categoria") String categoria) {
+	model.addAttribute("recetas", recetaService.getListaCategoria(categoria));
+	return "recetas";
+}
 
 @GetMapping("/nuevo")
 public String getNuevaRecetaPage(Model model) {
@@ -95,7 +98,7 @@ public String getModificarRecetaPage(Model model,@PathVariable(value="id")Long i
 
 @PostMapping("/modificar")
 public ModelAndView postModificarRecetaPage(@Valid @ModelAttribute("receta")Receta receta, BindingResult result, @RequestParam("file") MultipartFile imagen) throws Exception  {
-	ModelAndView modelView = new ModelAndView("recetas");
+	ModelAndView modelView = new ModelAndView("categorias_recetas");
 	boolean edicion = true;
 	List<Ingrediente> listaIngredientes = ingredRepository.findByEstado(true);
 	if(result.hasErrors()) {
@@ -135,7 +138,7 @@ public ModelAndView postModificarRecetaPage(@Valid @ModelAttribute("receta")Rece
 @PostMapping("/guardar")
 public ModelAndView guardarReceta(@Valid @ModelAttribute("receta") Receta receta, BindingResult result,
 		@RequestParam("file") MultipartFile imagen) throws Exception {
-	ModelAndView modelView = new ModelAndView("recetas");
+	ModelAndView modelView = new ModelAndView("categorias_recetas");
 	List<Ingrediente> listaIngredientes = ingredRepository.findByEstado(true);
 	if(result.hasErrors()) {
 		modelView.setViewName("nueva_receta");

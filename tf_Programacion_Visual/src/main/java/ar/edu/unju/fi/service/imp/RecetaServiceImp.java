@@ -32,6 +32,11 @@ public class RecetaServiceImp implements IRecetaService {
 	public Receta getBy(Long id) {
 		return recetaRepository.findById(id).get();
 	}
+	
+	@Override
+	public List<Receta> getListaCategoria(String categoria) {
+		return recetaRepository.findByCategoria(categoria);
+	}
 
 	@Override
 	public void eliminar(Receta recetaEncontrada) {

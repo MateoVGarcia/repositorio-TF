@@ -17,6 +17,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -50,6 +51,7 @@ public class Receta {
 	@JoinTable(name="receta_ingrediente",
 				joinColumns= {@JoinColumn(name="rec_id")},
 				inverseJoinColumns= {@JoinColumn (name="ingr_id")})
+	@NotEmpty(message="Debe contener al menos 1 ingrediente")
 	private List<Ingrediente> ingredientes = new ArrayList<>();
 	
 	public Receta() {

@@ -10,7 +10,7 @@ public interface IIngredienteService {
 	List<Ingrediente> getLista();
 	//Guardado de ingredientes
 	void guardar(Ingrediente ingred);
-	//Obtener un ingrediente segun su descripcion
+	//Obtener un ingrediente segun su id
 	Ingrediente getBy(Long id);
 	//Eliminar un ingrediente
 	void eliminar(Ingrediente ingredienteEncontrado);
