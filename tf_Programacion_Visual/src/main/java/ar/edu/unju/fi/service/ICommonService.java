@@ -5,5 +5,7 @@ import java.util.List;
 public interface ICommonService {
 	
 	List<String> getRegistroSexo();
+	
+	List<String> getRecetasCategoria();
 
 }
