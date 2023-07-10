@@ -20,7 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 import jakarta.persistence.GeneratedValue;
 import jakarta.servlet.http.HttpServletRequest;
 
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import java.util.UUID;
 
 import jakarta.validation.Valid;
@@ -33,8 +35,12 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ar.edu.unju.fi.entity.Ingrediente;
 import ar.edu.unju.fi.entity.Receta;
+import ar.edu.unju.fi.repository.IIngredienteRepository;
 import ar.edu.unju.fi.repository.IRecetaRepository;
+import ar.edu.unju.fi.service.ICommonService;
+import ar.edu.unju.fi.service.IIngredienteService;
 import ar.edu.unju.fi.service.IRecetaService;
 import ar.edu.unju.fi.util.UploadFile;
 
@@ -46,7 +52,11 @@ public class RecetaController {
 	@Autowired
 	private IRecetaService recetaService;
 	@Autowired
+	private IIngredienteRepository ingredRepository;
+	@Autowired
 	private UploadFile uploadFile;
+	@Autowired
+	private ICommonService commonService;
 
 	
 //	 public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/uploads";
@@ -62,8 +72,10 @@ public String getRecetasPage(Model model) {
 @GetMapping("/nuevo")
 public String getNuevaRecetaPage(Model model) {
 	boolean edicion = false ;
-	model.addAttribute("receta", recetaService.getReceta());
-	//model.addAttribute("categorias");
+	List<Ingrediente> listaIngredientes = ingredRepository.findByEstado(true);
+	model.addAttribute("receta",new Receta());
+	model.addAttribute("listaIngredientes",listaIngredientes);
+	model.addAttribute("categorias", commonService.getRecetasCategoria());
 	model.addAttribute("edicion",edicion);
 	return "nueva_receta";
 }
@@ -72,37 +84,26 @@ public String getNuevaRecetaPage(Model model) {
 public String getModificarRecetaPage(Model model,@PathVariable(value="id")Long id){
 	boolean edicion = true;
 	Receta recetaEncontrada = recetaService.getBy(id);
+	List<Ingrediente> listaIngredientes = ingredRepository.findByEstado(true);
 	model.addAttribute("receta", recetaEncontrada);
-	//model.addAttribute("categorias");
+	model.addAttribute("categorias", commonService.getRecetasCategoria());
 	model.addAttribute("edicion",edicion);
+	model.addAttribute("listaIngredientes",listaIngredientes);
 	
 	return "nueva_receta";	
 }
 
-/*@PostMapping("/modificar")
-public ModelAndView postModificarRecetaPage(@Valid @ModelAttribute("receta")Receta receta, BindingResult result) {
-	ModelAndView modelView = new ModelAndView("recetas");
-	boolean edicion = true;
-	if(result.hasErrors()) {
-		modelView.setViewName("nueva_receta");
-		modelView.addObject("receta", receta);
-		//modelView.addObject("categorias");
-		modelView.addObject("edicion", edicion);
-		return modelView;
-	}
-	recetaService.guardar(receta);
-	modelView.addObject("recetas", recetaService.getLista());
-	return modelView;
-}*/
 @PostMapping("/modificar")
 public ModelAndView postModificarRecetaPage(@Valid @ModelAttribute("receta")Receta receta, BindingResult result, @RequestParam("file") MultipartFile imagen) throws Exception  {
 	ModelAndView modelView = new ModelAndView("recetas");
 	boolean edicion = true;
+	List<Ingrediente> listaIngredientes = ingredRepository.findByEstado(true);
 	if(result.hasErrors()) {
 		modelView.setViewName("nueva_receta");
 		modelView.addObject("receta", receta);
-		//modelView.addObject("categorias");
+		modelView.addObject("categorias", commonService.getRecetasCategoria());
 		modelView.addObject("edicion", edicion);
+		modelView.addObject("listaIngredientes",listaIngredientes);
 		return modelView;
 	}
 	Receta areceta = recetaService.getBy(receta.getId());
@@ -135,12 +136,12 @@ public ModelAndView postModificarRecetaPage(@Valid @ModelAttribute("receta")Rece
 public ModelAndView guardarReceta(@Valid @ModelAttribute("receta") Receta receta, BindingResult result,
 		@RequestParam("file") MultipartFile imagen) throws Exception {
 	ModelAndView modelView = new ModelAndView("recetas");
-
+	List<Ingrediente> listaIngredientes = ingredRepository.findByEstado(true);
 	if(result.hasErrors()) {
 		modelView.setViewName("nueva_receta");
 		modelView.addObject("receta", receta);
-		//modelView.addObject("categorias", commonService.getConsejoCategoria());
-		System.out.print("aaaa");
+		modelView.addObject("listaIngredientes",listaIngredientes);
+		modelView.addObject("categorias", commonService.getRecetasCategoria());
 		return modelView;
 	}else{
 		if (receta.getId() != null ) {

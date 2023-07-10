@@ -1,12 +1,20 @@
 package ar.edu.unju.fi.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -18,7 +26,7 @@ import jakarta.validation.constraints.Size;
 public class Receta {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	//@Column(name="rec_id")
+	@Column(name="rec_id")
 	private Long id;
 	@Column(name="rec_nombre", nullable=false)
 	@NotBlank(message="El nombre no debe quedar en blanco")
@@ -26,8 +34,6 @@ public class Receta {
 	private String nombre;
 	@Column(name="rec_categoria", nullable=false)
 	private String categoria;
-	@Column(name="rec_ingrediente", nullable=false)
-	private String ingrediente;
 	@Column(name="rec_preparacion",columnDefinition = "text" ,nullable=false)
 	@NotBlank(message="Debe ingresar como realizó su receta")
 	private String preparacion;
@@ -40,6 +46,11 @@ public class Receta {
 	private String descripcion;
 	@Column(name="rec_estado", nullable=false)
 	private boolean estado;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name="receta_ingrediente",
+				joinColumns= {@JoinColumn(name="rec_id")},
+				inverseJoinColumns= {@JoinColumn (name="ingr_id")})
+	private List<Ingrediente> ingredientes = new ArrayList<>();
 	
 	public Receta() {
 		
@@ -48,7 +59,6 @@ public class Receta {
 	public Receta(Long id,String nombre,String categoria, String ingrediente, String preparacion, String imagen, String descripcion) {
 		this.nombre = nombre;
 		this.categoria = categoria;
-		this.ingrediente = ingrediente;
 		this.preparacion = preparacion;
 		this.imagen = imagen;
 		this.descripcion = descripcion;
@@ -71,12 +81,6 @@ public class Receta {
 	}
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
-	}
-	public String getIngrediente() {
-		return ingrediente;
-	}
-	public void setIngrediente(String ingrediente) {
-		this.ingrediente = ingrediente;
 	}
 	public String getPreparacion() {
 		return preparacion;
@@ -101,6 +105,18 @@ public class Receta {
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	
+	public List<Ingrediente> getIngredientes() {
+		return ingredientes;
+	}
+
+	public void setIngredientes(List<Ingrediente> ingredientes) {
+		this.ingredientes = ingredientes;
+	}
+
+	public void añadirIngrediente(Ingrediente ingrediente) {
+		this.ingredientes.add(ingrediente);
 	}
 }
 

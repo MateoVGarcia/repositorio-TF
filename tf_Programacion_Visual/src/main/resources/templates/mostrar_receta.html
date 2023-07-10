@@ -13,6 +13,15 @@
 <h1 class="text-center fs-1" th:text="${receta.nombre}"></h1>
 <img class="rounded mx-auto d-block img-fluid" th:src="@{'/recetas/uploads/'}+ ${receta.imagen}" th:alt="${receta.nombre}" style="max-width: 60%"><br>
 <p th:text="'Categoria: '+${receta.categoria}" class="badge bg-warning text-wrap fs-6"></p>
+<div class="row mx-auto">
+<p class="col-md-2 badge bg-info text-wrap fs-5">Ingrediente/s:</p>
+</div>
+<div class="col-md-2 mx-auto">
+<ul class="list-group text-center"th:each="ingrediente : ${receta.ingredientes}">
+<li class="list-group-item"th:text="${ingrediente.nombre}"></li>
+</ul>
+</div>
+<br>
 <div class="card">
 <p th:text="${receta.preparacion}" class="text-break lh-base fs-4 text-center"></p>
 </div>

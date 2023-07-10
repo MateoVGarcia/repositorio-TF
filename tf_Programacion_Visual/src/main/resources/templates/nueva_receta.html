@@ -27,18 +27,26 @@
 				<br>
 				<div class="text-danger" th:if="${#fields.hasErrors('nombre')}"
 					th:errors="*{nombre}"></div>
-				<br> <label for="categoria" class="form-label">Categoria</label><br>
-				<input type="text" class="col-form-label" id="categoria"
-					name="receta_categoria" th:field="*{categoria}"
-					placeholder="Seleccione una categoria"> <br>
+				<br><label for="categoria">Categoria</label><br> <select
+						id="categoria" name="receta_categoria" th:field="*{categoria}" placeholder="Seleccione una categoría">
+						<option th:each="categoria : ${categorias}"
+							th:value="${categoria}" th:text="${categoria}"></option>
+					</select> <br>
+					<div class="flex-row">
 				<div class="text-danger" th:if="${#fields.hasErrors('categoria')}"
 					th:errors="*{categoria}"></div>
-				<br> <label for="ingrediente" class="form-label">Ingrediente/s</label><br>
-				<input type="text" class="col-form-label" id="ingrediente"
-					name="receta_ingrediente" th:field="*{ingrediente}"
-					placeholder="Seleccione un ingrediente"> <br>
-				<div class="text-danger" th:if="${#fields.hasErrors('ingrediente')}"
-					th:errors="*{ingrediente}"></div>
+				<div class="form-group-row">
+				<label for="ingredientes" class="form-label">Ingrediente/s</label>
+				<th:block th:each="ingrediente : ${listaIngredientes}">
+				<div class="col-sm-8 mx-auto text-left">
+				<input type="checkbox" name="ingredientes" th:field="*{ingredientes}" th:text="${ingrediente.nombre}" th:value="${ingrediente.id}" class="m-2 form-check-input" >
+				</div>
+				</th:block>
+				</div>
+				<div>
+				<div><a th:href="@{/recetas/ingredientes/nuevo}" class="btn btn-secondary text-right fs-6 fw-lighter">Agregar nuevo ingrediente</a></div>
+				 </div>
+				 </div>
 				<br> <label for="preparacion" class="form-label">Preparación</label><br>
 				<textarea class="form-control-md" rows="3" cols="100"
 					id="preparacion" name="receta_preparacion"
