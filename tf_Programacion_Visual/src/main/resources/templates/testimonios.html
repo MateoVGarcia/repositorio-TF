@@ -9,46 +9,68 @@
 </head>
 
 <body >
- <header th:replace="~{/layouts/header :: header}"></header>
-  <h2>Testimonios de otros usuarios:</h2>
- <ul th:each="testimonio : ${testimonioLista}" class="list-unstyled ms-3">
-	 <div class="card col-3">
-  	
-     <li class="d-flex"><img src="../images/usuario.png"class="img-responsive img-rounded mt-1"
-                   style="max-height: 25px; max-width: 25px;"><p  class="fs-5 ms-3" th:text="'Autor: ' + ${testimonio.usuario.nombre} + ' ' + ${testimonio.usuario.apellido} "></p>
-      </li>
-      <li><p th:text="${testimonio.comentario}" class="text-center"></p></li>
-      </div>
-    </ul>
+ 	<header th:replace="~{/layouts/header :: header}"></header>
+ 	
+ 	<div class="container">
+		<h2 class="text-center m-3 my-4">Testimonios de otros usuarios</h2>
+		<h4 class="text-center mb-3">¿Deseas ingresar tu testimonio?  ¡Ingresa con tu id de usuario!</h4>
 	
-	
-	  <p class="row fs-3 mx-auto">¿Deseas ingresar tu testimonio? Ingresa con tu id de usuario</p>
+	<div class="row justify-content-center mb-4">
+	<div class="card col-12 col-md-6  text-center">
+		<ul th:each="testimonio : ${testimonioLista}" class="list-unstyled ms-3">	
+			<li class="d-flex">
+			<img src="../images/usuario.png"
+				class="img-responsive img-rounded mt-1"
+				style="max-height: 25px; max-width: 25px;">
+			<p class="fs-5 ms-3"
+					th:text="'Autor: ' + ${testimonio.usuario.nombre} + ' ' + ${testimonio.usuario.apellido} "></p>
+			</li>
+			<li><p th:text="${testimonio.comentario}" class="text-center"></p></li>
+			</ul>
+	</div>
+	</div>
 
-  <form th:action="@{/testimonios/guardar}" method="POST">
-  	  <div class="row mx-auto">
-  	  <div class="col-4">
-    <label class="row" for="id">Ingrese su id:</label>
-    <input type="number" id="id" name="id" onchange="actualizarId()" value=0>
-    <div th:if="${error}" class="alert alert-danger">
-    <p th:text="${error}"></p>
-    </div>
-    </div>
+	
+
+	<form th:action="@{/testimonios/guardar}" method="POST" class="text-center mb-5">
+		<div class="row justify-content-center">
+			<div class="col-12 col-md-6">
+			 <div class="form-group">
+				<label for="id" class="mb-2">Ingrese su id:</label> <input
+					type="number" id="id" name="id" onchange="actualizarId()" value=0 class="form-control">
+				<div th:if="${error}" class="alert alert-danger">
+					<p th:text="${error}"></p>
+				</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="row justify-content-center">
+			<div class="col-12 col-md-6">
+			 <div class="form-group">
+				<label for="comentario" class="m-2">Ingrese su testimonio:</label>
+				<textarea id="comentario" name="comentario"
+					placeholder="Ingrese su testimonio" class="form-control"></textarea>
+				<p class="fs-4" th:text="${invalid}"></p>
+			</div>
+			</div>
+		
+		</div>
+		
+		 <div class="row justify-content-center mt-3">
+        	<div class="col-12 col-md-6">
+		<input type="submit" class="2 btn" style="background-color: #45BFA9; color: white; outline: none;" value="Guardar testimonio">
+		</div>
+		</div>
+	
+	
+	</form>
 </div>
-<div class="row mx-auto">
-  <div class="col-4">
-	<label for="comentario">Ingrese su testimonio:</label>
-     <textarea id="comentario" name="comentario" placeholder="Ingrese su testimonio"></textarea>
-	<p class="fs-4" th:text="${invalid}"></p>
-	</div>
-	</div>
-    <input type="submit" value="Guardar testimonio">
-  </form>
 
 
-	
-	
-	
-	
+
+
 	<footer th:replace="~{layouts/footer :: footer}"></footer>
 	
 
