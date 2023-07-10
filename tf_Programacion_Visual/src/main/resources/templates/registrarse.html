@@ -4,18 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrese</title>
-    <link rel="stylesheet" href="@{/css/estilos.css}">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 
 <body>
-    <header th:replace="~{/layouts/header :: header}"></header>
+    <div class="row">
+        <header th:replace="~{layouts/header :: header}"></header>
+    </div>
     
-<a id="agregaprodu" th:href="@{/registrarse/nuevo}" class="cons_button">Agregar Productos</a>
-    <div class="container">
-        <h1>Tabla de Registros</h1>
-        <table class="table">
+    <div id="contenido_registro" class="container">
+    	<div th:if="${nombreRegistrado != null && apellidoRegistrado != null && idRegistrado != null}" class="alert alert-success">
+        ¡Felicitaciones! ¡El registro de <span th:text="${nombreRegistrado}"></span> <span th:text="${apellidoRegistrado}"></span> se ha guardado exitosamente con el ID <span th:text="${idRegistrado}"></span>!
+    	</div>
+    	
+        <h1>Tabla de Registrados</h1>
+        <div class="table-responsive">
+        <table class="table table-hover">
             <thead>
                 <tr>
                 	<th>Id</th>
@@ -26,6 +32,7 @@
                     <th>Teléfono</th>
                     <th>Sexo</th>
                     <th>Estatura</th>
+                    <th>Operaciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,19 +56,19 @@
                     <td th:text="${Regis.estatura}"></td>
 
                     <td class="custom-button">
-                        <a class="cons_button" th:href="@{/registrarse/modificar/}+${Regis.id}">Editar</a>
-                        <a class="cons_button" th:href="@{/registrarse/eliminar/}+${Regis.id}">Eliminar</a>
+                        <a class="btn btn-success rounded-pill px-3" th:href="@{/registrarse/modificar/}+${Regis.id}">Editar</a>
+                        <a class="btn btn-danger rounded-pill px-3" th:href="@{/registrarse/eliminar/}+${Regis.id}">Eliminar</a>
                     </td>
 
                 </tr>
             </tbody>
         </table>
+        </div>
     </div>
-<div class="row">
-
-        <footer th:replace="~{layouts/footer :: footer}"></footer>
-
-    </div>
+		<div class="row">
+        	<footer th:replace="~{layouts/footer :: footer}"></footer>
+    	</div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>
