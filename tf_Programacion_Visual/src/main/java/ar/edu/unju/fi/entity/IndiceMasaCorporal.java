@@ -81,16 +81,6 @@ public class IndiceMasaCorporal {
 
 
 
-	public String getUsuario() {
-		return usuario;
-	}
-
-
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-
 
 
 	public boolean isEstado() {
@@ -101,6 +91,14 @@ public class IndiceMasaCorporal {
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 

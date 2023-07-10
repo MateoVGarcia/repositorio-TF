@@ -26,7 +26,7 @@ public class RegistrarseController {
 	
 	
 	
-	@GetMapping("/listado")
+	@GetMapping
 	public String getListadoRegistrosPage(Model model, @RequestParam(name = "sexo", required = false) String sexo) {
 	    List<Registro> registros = registrarseService.getListaR(sexo);
 	    model.addAttribute("registros", registros); // Asegúrate de agregar la lista al modelo con el nombre "registros"

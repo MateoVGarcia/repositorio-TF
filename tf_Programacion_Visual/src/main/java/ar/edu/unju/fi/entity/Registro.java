@@ -1,15 +1,20 @@
 package ar.edu.unju.fi.entity;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -29,7 +34,7 @@ public class Registro {
     
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
-	@Column(name = "id")
+	@Column(name = "reg_id")
     private Long id;
 
 	@Column(name = "regis_nombre" ,nullable = false,length = 30)
@@ -54,7 +59,7 @@ public class Registro {
 	@Column(name = "regis_telefono", nullable = false)
 	@Min(value=1000000000, message="El número de teléfono debe tener al menos 9 dígitos.")
 	@NotNull(message = "El numero de telefono no puede estar vacío.")
-    private int telefono;
+    private Long telefono;
 
 	@Column(name = "regis_sexo", nullable = false)
 	@NotEmpty
@@ -63,10 +68,14 @@ public class Registro {
 	@Column(name = "regis_estatura", nullable = false)
 	@DecimalMin(value="1.0", inclusive = false, message="La estatura debe ser mayor que 1.")    
 	@NotNull(message="La estatura no puede estar vacía.")
-	private Float estatura;
+	private Double estatura;
     
     @Column(name="regis_estado")
 	private boolean estado;
+    
+    @OneToMany(cascade = CascadeType.ALL,
+    		fetch = FetchType.EAGER)
+    private List<IndiceMasaCorporal> imc = new ArrayList<>();
 
     // Constructor, getters y setters
 
@@ -74,7 +83,7 @@ public class Registro {
     }
     
     public Registro(String nombre, String apellido, String email, LocalDate nacimiento,
-            int telefono, String sexo, Float estatura, Long id) {
+           	Long telefono, String sexo, Double estatura, Long id) {
     	super();
     	this.id = id;
     	this.nombre = nombre;
@@ -86,17 +95,6 @@ public class Registro {
 		this.estatura = estatura;
 		}
 
-    public Registro(String nombre, String apellido, String email, LocalDate nacimiento,
-                    int telefono, String sexo, Float estatura) {
-    	super();
-    	this.nombre = nombre;
-        this.apellido = apellido;
-        this.email = email;       
-        this.nacimiento = nacimiento;
-        this.telefono = telefono;
-        this.sexo = sexo;
-        this.estatura = estatura;
-    }
 
     // Getters y setters
 	public Long getId() {
@@ -139,11 +137,11 @@ public class Registro {
 		this.nacimiento = nacimiento;
 	}
 
-	public int getTelefono() {
+	public Long getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(int telefono) {
+	public void setTelefono(Long telefono) {
 		this.telefono = telefono;
 	}
 
@@ -155,11 +153,11 @@ public class Registro {
 		this.sexo = sexo;
 	}
 
-	public Float getEstatura() {
+	public Double getEstatura() {
 		return estatura;
 	}
 
-	public void setEstatura(Float estatura) {
+	public void setEstatura(Double estatura) {
 		this.estatura = estatura;
 	}
 
@@ -169,6 +167,18 @@ public class Registro {
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
+	}
+
+	public List<IndiceMasaCorporal> getImc() {
+		return imc;
+	}
+
+	public void setImc(List<IndiceMasaCorporal> imc) {
+		this.imc = imc;
+	}
+	
+	public void añadirImc(IndiceMasaCorporal imc) {
+		this.imc.add(imc);
 	}
     
 }
