@@ -35,10 +35,7 @@
 								class="fs-4 card-text fw-bold" th:text="${receta.nombre}" th:href="@{/recetas/mostrar/}+${receta.id}"></a></li>
 							<li><p class="fs-6 card-text fw-light"
 									th:text="${receta.descripcion}"></p></li>
-									<li><a class="btn btn-light"
-												th:href="@{/recetas/modificar/}+${receta.id}">Editar</a> <a
-												class="btn btn-dark"
-												th:href="@{/recetas/eliminar/}+${receta.id}">Eliminar</a></li>
+									
 						</div>
 					</ul>
 				</div>
