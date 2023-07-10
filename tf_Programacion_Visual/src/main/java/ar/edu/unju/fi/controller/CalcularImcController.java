@@ -33,46 +33,40 @@ public class CalcularImcController {
 	
 	
 	@GetMapping
+	//Obtener la pagina de calculo de IMC
 	public String getCalcularImcPage(Model model) {
-		boolean incorrecto = false;
 		 model.addAttribute("mostrarBotonVolver", true);
-		model.addAttribute("incorrecto", incorrecto);
 		model.addAttribute("imc", indiceMasaCorporalService.getIMC());
 		return "calcularImc";
 	}
 	
-	
+	//Calculo de IMC y validacion de id
 	@PostMapping("/calculo")
 	public String calcularIMC(@RequestParam(value = "id") Long id, @RequestParam(value = "peso") Double peso, Model model) {
 	    Optional<Registro> optionalRegistro = regRepository.findById(id);
-	    
+	    //Si el id pertenece a un registro existente
 	    if (optionalRegistro.isPresent()) {
-	    	boolean incorrecto = false;
 	        Registro registroEncontrado = optionalRegistro.get();
 	        Double altura = registroEncontrado.getEstatura();
-	        
 	        IndiceMasaCorporal imc = indiceMasaCorporalService.getIMC();
+	        //Se calcula el imc y se settea el imc.
 	        imc.setImc(indiceMasaCorporalService.calcularIMC(peso, altura));
 	        imc.setUsuario(registroEncontrado.getNombre() + " " + registroEncontrado.getApellido());
 	        imc.setRegistro(registroEncontrado);
-	        
+	        //Si el id del IMC está repetido, se le suma 1 para que sea uno nuevo
 	        if (imc.getId() != null) {
 	            imc.setId(imc.getId() + 1);
 	        }
-	        
+	        //Se guarda tanto el IMC como el registro (Se le agrego un IMC a su lista)
 	        indiceMasaCorporalService.guardarIMC(imc);
 	        registroEncontrado.añadirImc(imc);
 	        registroService.guardarRegistro(registroEncontrado);
-	        
-	        model.addAttribute("incorrecto", incorrecto);
+
 	        model.addAttribute("resultadoIMC", imc.getImc());
 	        model.addAttribute("registro", registroEncontrado);
-	        
-
 	    }
+	    //En el caso de que no sea válido el id ingresado, se manda un mensaje de error
 	    if(optionalRegistro.isEmpty()) {
-	    boolean incorrecto = true;
-	    model.addAttribute("incorrecto", incorrecto);
 	    model.addAttribute("mensaje", "El id ingresado no pertenece a un usuario");
 	    return "calcularImc";
 	    }
