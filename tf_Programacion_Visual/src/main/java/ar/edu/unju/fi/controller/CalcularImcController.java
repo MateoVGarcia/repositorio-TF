@@ -35,6 +35,7 @@ public class CalcularImcController {
 	@GetMapping
 	public String getCalcularImcPage(Model model) {
 		boolean incorrecto = false;
+		 model.addAttribute("mostrarBotonVolver", true);
 		model.addAttribute("incorrecto", incorrecto);
 		model.addAttribute("imc", indiceMasaCorporalService.getIMC());
 		return "calcularImc";
@@ -72,48 +73,11 @@ public class CalcularImcController {
 	    if(optionalRegistro.isEmpty()) {
 	    boolean incorrecto = true;
 	    model.addAttribute("incorrecto", incorrecto);
-	    return "redirect:/calcularImc";
+	    model.addAttribute("mensaje", "El id ingresado no pertenece a un usuario");
+	    return "calcularImc";
 	    }
         return "ImcTabla";
 	}
-	
-
-	/*@PostMapping("/calculo")
-	public String calcularIMC(@RequestParam(value = "id") Long id, @RequestParam(value = "peso") Double peso, Model model) {
-	    Optional<Registro> optionalRegistro = regRepository.findById(id);
-	    
-	    if (optionalRegistro.isPresent()) {
-	    	boolean incorrecto = false;
-	        Registro registroEncontrado = optionalRegistro.get();
-	        Double altura = registroEncontrado.getEstatura();
-	        
-	        IndiceMasaCorporal imc = indiceMasaCorporalService.getIMC();
-	        imc.setImc(indiceMasaCorporalService.calcularIMC(peso, altura));
-	        imc.setUsuario(registroEncontrado.getNombre() + " " + registroEncontrado.getApellido());
-	        imc.setRegistro(registroEncontrado);
-	        
-	        if (imc.getId() != null) {
-	            imc.setId(imc.getId() + 1);
-	        }
-	        
-	        indiceMasaCorporalService.guardarIMC(imc);
-	        registroEncontrado.añadirImc(imc);
-	        registroService.guardarRegistro(registroEncontrado);
-	        
-	        model.addAttribute("incorrecto", incorrecto);
-	        model.addAttribute("resultadoIMC", imc.getImc());
-	        model.addAttribute("registro", registroEncontrado);
-	        
-
-	    }
-	    else {
-	    boolean incorrecto = true;
-	    model.addAttribute("incorrecto", incorrecto);
-	    return "redirect:/calcularImc";
-	    }
-        return "ImcTabla";
-	}
-	*/
 	 
 
 }

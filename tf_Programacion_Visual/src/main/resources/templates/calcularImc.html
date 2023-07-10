@@ -23,11 +23,12 @@
 					<div class="form-group">
 					<div th:object="${id}">
 					<label for="idUsuario">Id</label> 
-					<input type="number" name="id"  class="form-control" id="id" placeholder="Ingrese su ID de usuario">
-					<h3 th:if="${incorrecto} == true" th:text="El id ingresado no pertenece a un usuario"></h3>
+					<input type="number" name="id"  class="form-control mb-2" id="id" placeholder="Ingrese su ID de usuario">
+					<p th:if="${mensaje}" th:text="${mensaje}"></p>
 					</div>
 						<label for="pesoActual">Peso Actual (Kg)</label> 
-						<input type="number" name="peso" step=0.01 class="form-control mb-4" id="peso" placeholder="Ingrese su peso actual" >
+						<input type="number" name="peso" step=0.01 class="form-control mb-2" id="peso" placeholder="Ingrese su peso actual" >
+						<p th:if="${mensaje2}" th:text="${mensaje2}"></p>
 					</div>
 					<button type="submit" class="btn btn-primary">Calcular IMC</button>
 				</form>
