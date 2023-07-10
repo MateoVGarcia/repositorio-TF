@@ -37,28 +37,34 @@ public class TestimonioController {
 		return "testimonios";
 	}
 
-	// Guardar un testimonio
-	@PostMapping("/guardar")
-	public String getNuevoTestimonioPage(Model model, @RequestParam(value = "id") Long id,
-			@RequestParam(value = "comentario") String comentario, RedirectAttributes attributes) {
-		Optional<Registro> optionalRegistro = regRepository.findById(id);
-		// Si el id dado es válido
-		if (optionalRegistro.isPresent()) {
-			// Se guarda el testimonio
-			Registro registroEncontrado = optionalRegistro.get();
-			Testimonio nuevoTestimonio = testimonioService.getTestimonio();
-			nuevoTestimonio.setUsuario(registroEncontrado);
-			nuevoTestimonio.setComentario(comentario);
-			testimonioService.guardarTestimonio(nuevoTestimonio);
-		}
-		// Si el id no es válido se devuelve mensaje de error
-		if (optionalRegistro.isEmpty()) {
-			attributes.addFlashAttribute("error", "El ID ingresado no pertenece a un usuario existente");
-			return "redirect:/testimonios";
-		}
-		model.addAttribute("testimonioLista", testimonioService.getListaT());
-		return "testimonios";
-	}
+	 // Guardar un testimonio
+    @PostMapping("/guardar")
+    public String guardarTestimonio(Model model, @RequestParam(value = "id") Long id,
+            @RequestParam(value = "comentario") String comentario, RedirectAttributes attributes) {
+        Optional<Registro> optionalRegistro = regRepository.findById(id);
+        // Si el ID dado es válido
+        if (optionalRegistro.isPresent()) {
+            Registro registroEncontrado = optionalRegistro.get();
+            Testimonio testimonioExistente = testimonioService.getByUserId(id);
+            if (testimonioExistente != null) {
+                // Actualizar el testimonio existente
+                testimonioExistente.setComentario(comentario);
+                testimonioService.guardarTestimonio(testimonioExistente);
+            } else {
+                // Crear un nuevo testimonio
+                Testimonio nuevoTestimonio = testimonioService.getTestimonio();
+                nuevoTestimonio.setUsuario(registroEncontrado);
+                nuevoTestimonio.setComentario(comentario);
+                testimonioService.guardarTestimonio(nuevoTestimonio);
+            }
+        } else {
+            // Si el ID no es válido se devuelve mensaje de error
+            attributes.addFlashAttribute("error", "El ID ingresado no pertenece a un usuario existente");
+        }
+        return "redirect:/testimonios";
+    }
+
+
 
 	// Metodo para eliminar un testimonio
 	@GetMapping("/eliminar/{id}")

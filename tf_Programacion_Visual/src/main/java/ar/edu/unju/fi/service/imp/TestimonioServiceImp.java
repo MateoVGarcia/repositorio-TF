@@ -51,5 +51,11 @@ public class TestimonioServiceImp implements ITestimonioService{
 		testimonio.setFecha(fechaActual);
 		return testimonio;
 	}
+	
+    @Override
+    public Testimonio getByUserId(Long userId) {
+        return testimonioRepository.findByUsuarioId(userId);
+    }
+
 
 }

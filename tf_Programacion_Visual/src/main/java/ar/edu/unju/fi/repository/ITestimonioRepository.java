@@ -10,4 +10,7 @@ import ar.edu.unju.fi.entity.Testimonio;
 	public interface ITestimonioRepository extends CrudRepository<Testimonio, Long> {
 
 	    public List<Testimonio> findByEstado(boolean estado);
+	    
+	    Testimonio findByUsuarioId(Long userId);
+	
 }

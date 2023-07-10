@@ -22,6 +22,8 @@ public interface ITestimonioService {
 
 	    // Obtener testimonio nuevo
 	     Testimonio getTestimonio();
+	     
+	     Testimonio getByUserId(Long userId);
 
 	}
 
