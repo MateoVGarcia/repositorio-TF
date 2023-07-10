@@ -10,7 +10,7 @@ import ar.edu.unju.fi.entity.Registro;
 public interface IRegistrarseService {
     
 	// Listar productos
-    List<Registro> getListaR(String categoriaR);
+    List<Registro> getListaR(String sexo);
 
     // Guardar productos
     void guardarRegistro(Registro registro);
@@ -23,7 +23,5 @@ public interface IRegistrarseService {
 
     // Obtener producto nuevo
      Registro getRegistro();
-
-	List<Registro> buscarPorSexo(String sexo);
 
 }

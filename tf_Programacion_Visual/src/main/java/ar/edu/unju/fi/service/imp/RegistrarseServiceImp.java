@@ -51,10 +51,5 @@ public class RegistrarseServiceImp implements IRegistrarseService {
 		return registro;
 	}
 
-	@Override
-	public List<Registro> buscarPorSexo(String sexo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

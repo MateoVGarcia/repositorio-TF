@@ -3,6 +3,7 @@ import java.time.LocalDate;
 
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -27,38 +29,41 @@ public class Registro {
     
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
-    @Column(name = "regis_id")
+	@Column(name = "id")
     private Long id;
 
-    @Size(max=30, message="El nombre puede contener solo hasta 30 caracteres.")
+	@Column(name = "regis_nombre" ,nullable = false,length = 30)
+	@Size(min=5, max=12 , message = "El nombre debe contener entre 5 y 12 caracteres.")
     @NotEmpty(message="El nombre no puede estar vacío.")
-    @Column(name = "regis_nombre" ,nullable = false,length = 30)
     private String nombre;
 
-    @Size(max=10, message="El apellido puede contener hasta 10 caracteres.")
+	@Column(name = "regis_apellido", nullable = false, length = 10)
+	@Size(min=5, max=12 , message = "El apellido debe contener entre 5 y 12 caracteres.")
     @NotEmpty(message="El apellido no puede estar vacío.")
-    @Column(name = "regis_apellido", nullable = false, length = 10)
     private String apellido;
 
-    @NotEmpty(message="El email no puede quedar vacío.")
-    @Column(name = "regis_email", nullable = false)
+	@Column(name = "regis_email", nullable = false)
+	@NotEmpty(message="El email no puede quedar vacío.")    
     private String email;
 
-    @Past(message = "La fecha de nacimiento debe ser anterior a la fecha actual.")
-    @Column(name = "regis_nacimiento", nullable = false)
-    private LocalDate nacimiento;
+	@Column(name = "regis_nacimiento", nullable = false)
+	@Past(message = "La fecha de nacimiento debe ser anterior a la fecha actual.")    
+	@NotNull(message = "Ingrese su fecha de nacimiento")
+	private LocalDate nacimiento;
 
-    @Min(value=100000000L, message="El número de teléfono debe tener al menos 9 dígitos.")
-    @Column(name = "regis_telefono", nullable = false)
+	@Column(name = "regis_telefono", nullable = false)
+	@Min(value=1000000000, message="El número de teléfono debe tener al menos 9 dígitos.")
+	@NotNull(message = "El numero de telefono no puede estar vacío.")
     private int telefono;
 
-    @NotEmpty
-    @Column(name = "regis_sexo", nullable = false)
+	@Column(name = "regis_sexo", nullable = false)
+	@NotEmpty
     private String sexo;
 
-    @DecimalMin(value="1.0", inclusive = false, message="La estatura debe ser mayor que 1.")
-    @Column(name = "regis_estatura", nullable = false)
-    private Double estatura;
+	@Column(name = "regis_estatura", nullable = false)
+	@DecimalMin(value="1.0", inclusive = false, message="La estatura debe ser mayor que 1.")    
+	@NotNull(message="La estatura no puede estar vacía.")
+	private Float estatura;
     
     @Column(name="regis_estado")
 	private boolean estado;
@@ -69,7 +74,7 @@ public class Registro {
     }
     
     public Registro(String nombre, String apellido, String email, LocalDate nacimiento,
-            int telefono, String sexo, Double estatura, Long id) {
+            int telefono, String sexo, Float estatura, Long id) {
     	super();
     	this.id = id;
     	this.nombre = nombre;
@@ -82,7 +87,7 @@ public class Registro {
 		}
 
     public Registro(String nombre, String apellido, String email, LocalDate nacimiento,
-                    int telefono, String sexo, Double estatura) {
+                    int telefono, String sexo, Float estatura) {
     	super();
     	this.nombre = nombre;
         this.apellido = apellido;
@@ -150,11 +155,11 @@ public class Registro {
 		this.sexo = sexo;
 	}
 
-	public Double getEstatura() {
+	public Float getEstatura() {
 		return estatura;
 	}
 
-	public void setEstatura(Double estatura) {
+	public void setEstatura(Float estatura) {
 		this.estatura = estatura;
 	}
 

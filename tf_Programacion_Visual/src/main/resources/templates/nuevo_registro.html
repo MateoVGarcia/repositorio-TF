@@ -23,8 +23,8 @@
             <div class="col-6">
 
                 <label for="nameInput" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="registro_nombre" th:field="*{nombre}"
-                    placeholder="Escriba su nombre">
+                <input type="text" class="form-control" id="nombre" name="registro_nombre" th:field="*{nombre}" placeholder="Escriba su nombre">
+                <div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
 
             </div>
 
@@ -33,6 +33,7 @@
                 <label for="lastnameInput" class="form-label">Apellido</label>
                 <input type="text" class="form-control" id="apellido" name="registro_apellido"
                     th:field="*{apellido}" placeholder="Escriba su apellido">
+                <div class="text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></div>
 
             </div>
 
@@ -40,7 +41,7 @@
 
                 <label for="emailInput" class="form-label">Correo Electrónico</label>              
                 <input id="email" type="text" class="form-control" name="registro_email" th:field="*{email}">
-						
+                <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>						
 
             </div>         
 
@@ -48,6 +49,7 @@
 
                 <label for="nacimiento">Fecha de nacimiento<small></small></label>
                 <input type="date" class="form-control" id="nacimiento" name="registro_nacimiento"  th:field="*{nacimiento}">
+                <div class="text-danger" th:if="${#fields.hasErrors('nacimiento')}" th:errors="*{nacimiento}"></div>
 
             </div>
 
@@ -55,17 +57,15 @@
 
                 <label for="phoneInput" class="form-label">Teléfono</label>
                 <input type="number" class="form-control" id="telefono" name="registro_telefono" th:field="*{telefono}" placeholder="Escriba su número de teléfono">
+                <div class="text-danger" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></div>
 
             </div>
 
             <div class="col-6">
 
                 <label for="sexo">Sexo:</label>
-
                 <select class="form-control" name="sexo" id="sexo" th:field="*{sexo}" required>
-                    		<option value="Masculino">Masculino</option>
-							<option value="Femenino">Femenino</option>
-							<option value="Otros">Otros</option>
+                 <option th:each="sexo : ${sexo}" th:value="${sexo}" th:text="${sexo}"></option>
                 </select>
                 <div class="text-danger" th:if="${#fields.hasErrors('sexo')}" th:errors="*{sexo}"></div>
 
@@ -75,11 +75,10 @@
 
                 <label for="estatura" class="form-label">Estatura</label>
                 <div class="range-container">
-
-                    <input type="number" class="form-control range-value" id="estatura" min="1" max="3" step="0.01"
-                        oninput="updateRange(this.value)" name="registro_estatura" th:field="*{estatura}">
-
+                <input type="number" class="form-control range-value" id="estatura" min="1" max="3" step="0.01" oninput="updateRange(this.value)" name="registro_estatura" th:field="*{estatura}">
                 </div>
+                <div class="text-danger" th:if="${#fields.hasErrors('estatura')}" th:errors="*{estatura}"></div>
+                
             </div>
 
             <input type="number" value="${id}" name="registro_id" class="d-none" th:field="*{id}">

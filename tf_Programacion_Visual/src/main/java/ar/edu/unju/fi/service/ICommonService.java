@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface ICommonService {
 	
-	List<String> getRegistroCategoria();
+	List<String> getRegistroSexo();
 
 }

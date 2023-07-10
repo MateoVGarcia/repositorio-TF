@@ -27,10 +27,10 @@ public class RegistrarseController {
 	
 	
 	@GetMapping("/listado")
-	public String getListadoRegistrosPage(Model model, @RequestParam(name = "categoriaR", required = false) String categoriaR) {
-	    List<Registro> registros = registrarseService.getListaR(categoriaR);
+	public String getListadoRegistrosPage(Model model, @RequestParam(name = "sexo", required = false) String sexo) {
+	    List<Registro> registros = registrarseService.getListaR(sexo);
 	    model.addAttribute("registros", registros); // Asegúrate de agregar la lista al modelo con el nombre "registros"
-	    model.addAttribute("categoriaR", categoriaR);
+	    model.addAttribute("sexo", sexo);
 	    return "registrarse";
 	}
 
@@ -39,7 +39,7 @@ public class RegistrarseController {
         boolean edicion = false;
         Registro registro = new Registro();
         model.addAttribute("registro", registro);
-        model.addAttribute("categorias", commonService.getRegistroCategoria());
+        model.addAttribute("sexo", commonService.getRegistroSexo());
         model.addAttribute("edicion", edicion);
         return "nuevo_registro";
     }
@@ -52,7 +52,7 @@ public class RegistrarseController {
             return "redirect:/registrarse/listado";
         }
         model.addAttribute("registro", registroEncontrado);
-        model.addAttribute("categorias", commonService.getRegistroCategoria());
+        model.addAttribute("sexo", commonService.getRegistroSexo());
         model.addAttribute("edicion", edicion);
         return "nuevo_registro";
     }
@@ -64,7 +64,7 @@ public class RegistrarseController {
         if (result.hasErrors()) {
             modelView.setViewName("nuevo_registro");
             modelView.addObject("registro", registro);
-            modelView.addObject("categorias", commonService.getRegistroCategoria());
+            modelView.addObject("sexo", commonService.getRegistroSexo());
             modelView.addObject("edicion", edicion);
             return modelView;
         }
@@ -73,19 +73,28 @@ public class RegistrarseController {
     }
 
     @PostMapping("/guardar")
-    public ModelAndView guardarRegistro(@Valid @ModelAttribute("registro") Registro registro, BindingResult result) {
-        ModelAndView modelView = new ModelAndView("registrarse");
-        if (result.hasErrors()) {
-            modelView.setViewName("registrarse");
+    public ModelAndView guardarRegistro(@Valid @ModelAttribute("registro") Registro registro, BindingResult bindingResult) {
+        ModelAndView modelView = new ModelAndView();
+
+        if (bindingResult.hasErrors()) {
+            // Si hay errores de validación, regresar al formulario con los errores
+        	modelView.addObject("sexo", commonService.getRegistroSexo());
+        	modelView.setViewName("nuevo_registro");
             modelView.addObject("registro", registro);
-            modelView.addObject("categorias", commonService.getRegistroCategoria());
+            return modelView;
+        } else {
+            // Si no hay errores, guardar el registro en la base de datos
+            registrarseService.guardarRegistro(registro);
+
+            // Obtener la lista actualizada de registros
+            List<Registro> registros = registrarseService.getListaR(null);
+
+            modelView.setViewName("registrarse");
+            modelView.addObject("registros", registros);
+            modelView.addObject("sexo", null); // Restablecer la categoría (puedes ajustar esto según tu lógica)
+
             return modelView;
         }
-        registrarseService.guardarRegistro(registro);
-        List<Registro> registros = registrarseService.getListaR(null);  // Obtener la lista actualizada de registros
-        modelView.addObject("registros", registros);  // Agregar la lista al modelo
-        modelView.addObject("categoriaR", null);  // Restablecer la categoría (puedes ajustar esto según tu lógica)
-        return modelView;
     }
 
     @GetMapping("/eliminar/{id}")
