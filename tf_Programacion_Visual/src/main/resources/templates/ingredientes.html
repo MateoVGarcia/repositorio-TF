@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lista de ingredientes</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+	crossorigin="anonymous">
+</head>
+<body>
+<a th:href="@{/recetas/ingredientes/nuevo}" class="btn btn-primary col-md-1">Agregar</a><br>
+<a th:href="@{/recetas}" class="btn btn-danger col-md-1">Volver</a>
+<div class="table-responsive-sm mb-3">
+								<div class="container justify-content-center">
+									<table class="table table-striped">
+										<tr>
+											<th>Ingrediente</th>
+											<th>Acciones</th>
+										</tr>
+										<tr th:each="ingr: ${ingredientes}">
+											<td class="th"><a th:text="${ingr.nombre}"> </a></td>
+											<td><a
+												th:href="@{/recetas/ingredientes/modificar/}+${ingr.id}">Editar</a> <a
+												class="cons_button"
+												th:href="@{/recetas/ingredientes/eliminar/}+${ingr.id}">Eliminar</a></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+</body>
+</html>
