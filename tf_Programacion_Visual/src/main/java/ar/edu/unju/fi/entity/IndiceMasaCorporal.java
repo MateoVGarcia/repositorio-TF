@@ -25,7 +25,7 @@ public class IndiceMasaCorporal {
 	private LocalDate fecha;
 	
 	@Column(name="imc_num_imc")
-	private Double imc;
+	private String imc;
 	
 	@Column(name="imc_usuario")
 	private String usuario;
@@ -36,7 +36,7 @@ public class IndiceMasaCorporal {
 	public IndiceMasaCorporal() {
 	}
 
-	public IndiceMasaCorporal(Long id, LocalDate fecha, Double imc, String usuario) {
+	public IndiceMasaCorporal(Long id, LocalDate fecha, String imc, String usuario) {
 		this.fecha = fecha;
 		this.imc = imc;
 		this.usuario = usuario;
@@ -69,13 +69,13 @@ public class IndiceMasaCorporal {
 
 
 
-	public Double getImc() {
+	public String getImc() {
 		return imc;
 	}
 
 
 
-	public void setImc(Double imc) {
+	public void setImc(String imc) {
 		this.imc = imc;
 	}
 

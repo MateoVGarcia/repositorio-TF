@@ -1,13 +1,10 @@
 package ar.edu.unju.fi.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,8 +30,11 @@ public class CalcularImcController {
 		model.addAttribute("imc", indiceMasaCorporalService.getIMC());
 		return "calcularImc";
 	}
+	
+	
+	
 	 @PostMapping("/calculo")
-	  public String calcularIMC(@RequestParam(value = "id") Long id, @RequestParam(value = "peso") Double peso) {
+	  public String calcularIMC(@RequestParam(value = "id") Long id, @RequestParam(value = "peso") Double peso, Model model) {
 		Registro registroEncontrado = registroService.getBy(id);
 		if (registroEncontrado != null) {
 			Double altura = registroEncontrado.getEstatura();
@@ -44,6 +44,9 @@ public class CalcularImcController {
 			indiceMasaCorporalService.guardarIMC(imc);
 			registroEncontrado.añadirImc(imc);
 			registroService.guardarRegistro(registroEncontrado);
+			
+			model.addAttribute("resultadoIMC", imc.getImc());
+			model.addAttribute("registro", registroEncontrado);
 		}
 	   return "ImcTabla";
 	  }

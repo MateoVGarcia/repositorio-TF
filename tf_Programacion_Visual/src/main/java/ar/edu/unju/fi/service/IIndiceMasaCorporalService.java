@@ -22,6 +22,6 @@ public interface IIndiceMasaCorporalService {
     // Obtener producto nuevo
     IndiceMasaCorporal getIMC();
     
-    Double calcularIMC(Double peso, Double altura);
+    String calcularIMC(Double peso, Double altura);
 
 }
